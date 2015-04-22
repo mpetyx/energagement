@@ -8,6 +8,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     (r'^accounts/', include('allauth.urls')),
-    url(r'^myapp/', include('myapp.urls'))
+    url(r'^p/', include('myapp.urls'))
 
 )

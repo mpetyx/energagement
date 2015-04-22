@@ -1,0 +1,174 @@
+@CHARSET "UTF-8";
+
+body {background: #b0ee95}
+
+.floatedTable {
+            float:left;
+}
+        
+.inlineTable {
+            display: inline-block;
+}
+
+div.keno {
+	
+    background-color: white;
+    width: 18px;
+    height: 340px;
+}  
+
+div.keno2 {
+	
+    background-color: grey;
+    width: 5px;
+    height: 200px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+        
+div.scroll1 {
+	
+    background-color: lightgrey;
+    width: 258px;
+    height: 200px;
+    overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+div.scroll2 {
+	
+    background-color: lightgrey;
+    width: 327px;
+    height: 200px;
+    overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+div.scroll3 {
+	
+    background-color: lightgrey;
+    width: 327px;
+    height: 200px;
+    overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+div.scroll4 {
+	
+    background-color: lightgrey;
+    width: 258px;
+    height: 160px;
+    overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+div.scroll5 {
+	
+    background-color: lightgrey;
+    width: 672px;
+    height: 240px;
+    overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+div.box1 {
+
+    background: lightgrey url("images/buildings.jpg") no-repeat;
+    width: 327px;
+    height: 340px;
+}
+
+div.box2 {
+
+    background: lightgrey url("images/street_lighting.jpg") no-repeat;
+    width: 327px;
+    height: 340px;
+}
+
+div.box3 {
+
+    background: lightgrey url("images/EV.jpg") no-repeat;
+    width: 327px;
+    height: 340px;
+}
+
+div.time_scope {
+	
+    float: right;
+    margin: 2px 20px;
+}  
+
+div.type {
+	
+    margin: 2px 5px;
+}
+
+div.graphic {
+	
+    margin: 3px 5px;
+}   
+
+div	{ float:left;}
+
+p2 {float:right;}
+
+br {height: 28px;}
+
+p1 {font-size: 36px;}
+
+a {color:grey; background-color:transparent; text-decoration:none}
+
+/* mouse over link */
+a:hover {
+    color: green;
+}
+
+tr, th, td {
+    border: 0px solid black;
+}
+
+table {border: 0px solid grey;}
+
+div.chart{
+	border: solid thin silver;
+	width: 450px;
+	height: 300px;
+	padding: 10px;
+}
+div.column{
+	width: 80px;
+	height: 100%;
+	margin: 2px 5px;
+	float: left;
+	position: relative;
+}
+
+div.column .fill{
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+}
+div.label{
+	text-align: center;
+}
+
+div.column:nth-child(1) .fill{
+		background: blue;
+		height: 10%;
+	}
+div.column:nth-child(2) .fill{
+		background: yellow;
+		height: 50%;
+	}
+div.column:nth-child(3) .fill{
+		background: green;
+		height: 60%;
+	}
+div.column:nth-child(4) .fill{
+		background: red;
+		height: 80%;
+	}
+div.column:nth-child(5) .fill{
+		background: gray;
+		height: 20%;
+	}
