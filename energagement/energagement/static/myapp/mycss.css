@@ -12,23 +12,21 @@ body {background: #b0ee95}
 
 div.keno {
 	
-    background-color: white;
+    background-color: #b0ee95;
     width: 18px;
-    height: 340px;
+    height: 250px;
 }  
 
 div.keno2 {
 	
-    background-color: grey;
-    width: 5px;
-    height: 200px;
-    overflow-y: hidden;
-    overflow-x: hidden;
+    background-color: #b0ee95;
+    width: 280px;
+    height: 250px;
 }
         
 div.scroll1 {
 	
-    background-color: lightgrey;
+    background-color: transparent;
     width: 258px;
     height: 200px;
     overflow-y: scroll;
@@ -37,7 +35,7 @@ div.scroll1 {
 
 div.scroll2 {
 	
-    background-color: lightgrey;
+    background-color: transparent;
     width: 327px;
     height: 200px;
     overflow-y: scroll;
@@ -46,7 +44,7 @@ div.scroll2 {
 
 div.scroll3 {
 	
-    background-color: lightgrey;
+    background-color: transparent;
     width: 327px;
     height: 200px;
     overflow-y: scroll;
@@ -55,7 +53,7 @@ div.scroll3 {
 
 div.scroll4 {
 	
-    background-color: lightgrey;
+    background-color: transparent;
     width: 258px;
     height: 160px;
     overflow-y: scroll;
@@ -64,7 +62,7 @@ div.scroll4 {
 
 div.scroll5 {
 	
-    background-color: lightgrey;
+    background-color: transparent;
     width: 672px;
     height: 240px;
     overflow-y: scroll;
@@ -73,23 +71,23 @@ div.scroll5 {
 
 div.box1 {
 
-    background: lightgrey url("images/buildings.jpg") no-repeat;
-    width: 327px;
-    height: 340px;
+    background: transparent url("images/buildings1.jpg") no-repeat;
+    width: 251px;
+    height: 250px;
 }
 
 div.box2 {
 
-    background: lightgrey url("images/street_lighting.jpg") no-repeat;
-    width: 327px;
-    height: 340px;
+    background: transparent url("images/street_lighting1.jpg") no-repeat;
+    width: 251px;
+    height: 250px;
 }
 
 div.box3 {
 
-    background: lightgrey url("images/EV.jpg") no-repeat;
-    width: 327px;
-    height: 340px;
+    background: transparent url("images/EV1.jpg") no-repeat;
+    width: 251px;
+    height: 250px;
 }
 
 div.time_scope {
