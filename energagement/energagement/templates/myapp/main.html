@@ -7,38 +7,46 @@
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
 </head>
 <body>
-    <p1> <center> <b>  Energagement </b> </center>  </p1>
-    <br/>
-    <center>
-        <div class="keno2">
-        </div>
-        <div class="box1">
-   			<table style="background-color:lightgrey"  class="floatedTable"  frame="box">
-        		<tr style="background-color:#ADFF2F">
-					<th width=251″> <center> <b> Buildings </b></center></th>
-				</tr>
-   			</table>
+    <div class="page" style=" width: 100%; height: 100%; ">
+        <p2 align="right" style="width: 80px; height: 30px; background-color:lightgray; margin-right: 2% position:relative;">
+            <a href="/accounts/logout/"> <center>Logout</center> </a>
+        </p2>
+        <p1 > <center style="margin-right:12%"> <b>  Energagement </b> </center>  </p1>
+        <br/>
+
+        <div class="box1" style="width: 251px; height: auto; margin-left: 10%; margin-right:auto; margin-bottom: 10%">
+   			<a>
+                <div style="width: 100%; background-color:#ADFF2F">
+                    <a href="/p/buildings/"> <center>Buildings</center> </a>
+                </div>
+            </a>
+            <div style="width: 100%">
+                <a href="/p/buildings/"> <img src="{% static 'myapp/images/buildings1.jpg' %}"/> </a>
+            </div>
    	    </div>
-        <div class="keno">
-        </div>
-        <div class="box2">
-   			<table style="background-color:lightgrey"  class="floatedTable"  frame="box">
-        		<tr style="background-color:#ADFF2F">
-					<th width=251″> <center> <b> Street Lighting </b></center></th>
-				</tr>
-   			</table>
+
+        <div class="box2" style="width: 251px; height: auto; margin-left: 10%; margin-right:auto; margin-bottom: 10%">
+   			<a>
+                <div style="width: 100%; background-color:#ADFF2F">
+                    <a href="/p/street_lighting/"> <center>Street Lighting</center> </a>
+                </div>
+            </a>
+            <div style="width: 100%">
+                <a href="/p/street_lighting/"> <img src="{% static 'myapp/images/street_lighting1.jpg' %}"/> </a>
+            </div>
    	    </div>
-        <div class="keno">
-        </div>
-        <div class="box3">
-   		   	<table style="background-color:lightgrey"  class="floatedTable"  frame="box">
-        		<tr style="background-color:#ADFF2F">
-					<th width=251> <center> <b> EV </b></center></th>
-				</tr>
-   			</table>
+
+        <div class="box3" style="width: 251px; height: auto; margin-left: 10% ;margin-right:auto; margin-bottom: 10%">
+   			<a>
+                 <div style="width: 100%; background-color:#ADFF2F">
+                    <a href="/p/EV/"> <center>EV</center> </a>
+                </div>
+            </a>
+            <div style="width: 100%">
+                <a href="/p/EV/"> <img src="{% static 'myapp/images/EV1.jpg' %}"/> </a>
+            </div>
    	    </div>
-        <div class="keno2">
-        </div>
-     </center>
+
+    </div>
 </body>
 </html>

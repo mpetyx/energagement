@@ -10,6 +10,12 @@ body {background: #b0ee95}
             display: inline-block;
 }
 
+div.page {
+    margin-left: auto;
+    margin-right: auto;
+    position : relative;
+}
+
 div.keno {
 	
     background-color: #b0ee95;
@@ -71,23 +77,16 @@ div.scroll5 {
 
 div.box1 {
 
-    background: transparent url("images/buildings1.jpg") no-repeat;
-    width: 251px;
-    height: 250px;
+
 }
 
 div.box2 {
 
-    background: transparent url("images/street_lighting1.jpg") no-repeat;
-    width: 251px;
-    height: 250px;
 }
 
 div.box3 {
 
-    background: transparent url("images/EV1.jpg") no-repeat;
-    width: 251px;
-    height: 250px;
+
 }
 
 div.time_scope {
@@ -112,7 +111,7 @@ p2 {float:right;}
 
 br {height: 28px;}
 
-p1 {font-size: 36px;}
+p1 {font-size: 47px; margin-right: 55%}
 
 a {color:grey; background-color:transparent; text-decoration:none}
 
