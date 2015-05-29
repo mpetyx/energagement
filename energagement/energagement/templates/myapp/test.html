@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 {% load staticfiles %}
-
 <head lang="en">
     <meta charset="UTF-8">
-    <title>EV</title>
+    <title>Energagement</title>
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
 
     <!--Load the AJAX API-->
@@ -27,11 +26,11 @@
             data.addColumn('string', 'Topping');
             data.addColumn('number', 'Slices');
             data.addRows([
-              ['Room1', 3],
-              ['Room2', 1],
-              ['Room3', 1],
-              ['Room4', 1],
-              ['Room5', 2]
+              ['Mushrooms', 3],
+              ['Onions', 1],
+              ['Olives', 1],
+              ['Zucchini', 1],
+              ['Pepperoni', 2]
             ]);
             // Create the data table.
             var data2 = new google.visualization.DataTable();
@@ -57,9 +56,9 @@
             ]);
 
             // Set chart options
-            var options = {'title':'How Much Energy Do You Spend',
-                           'width':852,
-                           'height':518};
+            var options = {'title':'How Much Pizza I Ate Last Night',
+                           'width':400,
+                           'height':300};
             // Set chart options
             var options2 = {'title':'How Much Pizza You Ate Last Night',
                            'width':400,
@@ -79,68 +78,11 @@
 
           }
         </script>
-
 </head>
 <body>
-    <div class="page" style=" width: 100%; height: 100%; ">
-        <p2 align="right" style="width: 80px; height: 30px; background-color:lightgray; margin-right: 2% position:relative;">
-            <a href="/accounts/logout/"> <center>Logout</center> </a>
-        </p2>
-        <p1 > <center style="margin-right:10%"> <b>  Energagement </b> </center>  </p1>
-        <br/>
-        <div style="width: 30%; height: 500px; margin-left: 2%; margin-right:auto; margin-bottom: 10%">
-   			<a>
-                <div style="width: 100%; background-color:#ADFF2F">
-                    <a> <center>EV</center> </a>
-                </div>
-            </a>
-            <a>
-                <div style="width: 100%; height: 47.5%; background-color:lightgray">
-                     <a>
-                            {{ form.as_p }}
-                            {{ form.as_p }}
-                            {{ form.as_p }}
-                     </a>
-                </div>
-            </a>
-            <a>
-                <div style="width: 100%; height: 5%; background-color:transparent">
-                    <a> <center></center> </a>
-                </div>
-            </a>
-
-            <a>
-                <div style="width: 100%; background-color:#ADFF2F">
-                    <a> <center>Energy Indicators</center> </a>
-                </div>
-            </a>
-            <a>
-                <div style="width: 100%; height: 47.5%; background-color:lightgray">
-                     <a>
-                         {{ form.as_p }}
-                         {{ form.as_p }}
-                         {{ form.as_p }}
-                     </a>
-                </div>
-            </a>
-   	    </div>
-        <div style="width: 64%; height: 500px; margin-left: 2%; margin-right:auto; margin-bottom: 10%">
-   			<a>
-                <div style="width: 100%; background-color:#ADFF2F">
-                    <a> <center>Diagrams</center> </a>
-                </div>
-                </a>
-            <a>
-                <div style="width: 100%; height: 104%; background-color:lightgray">
-                     <a> <center>
-                         <!--Divs that will hold the charts-->
-                         <div id="chart_div" style="width: 100%;"></div>
-                     </center> </a>
-                </div>
-            </a>
-   	    </div>
-    </div>
-
-
+       <!--Divs that will hold the charts-->
+        <div id="chart_div"></div>
+        <div id="chart_div2"></div>
+        <div id="chart_div3"></div>
 </body>
 </html>

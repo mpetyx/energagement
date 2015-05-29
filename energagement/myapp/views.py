@@ -1,4 +1,6 @@
 from django.shortcuts import render_to_response
+from django.shortcuts import render
+from .forms import myForm
 
 def main(request):
 
@@ -14,4 +16,10 @@ def street_lighting(request):
 
 def EV(request):
 
-    return render_to_response('myapp/EV.html')
+    form=myForm()
+    return render(request, 'myapp/EV.html', {'form':form},)
+
+def test(request):
+
+    return render_to_response('myapp/test.html')
+
