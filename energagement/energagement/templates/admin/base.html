@@ -1,19 +1,46 @@
-{% load admin_static %}{% load firstof from future %}<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
 <head>
 <title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
-{% block extrastyle %}{% endblock %}
-<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
-{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
-<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
-<script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
-{% block extrahead %}{% endblock %}
-{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
+
+
 </head>
 {% load i18n %}
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+
+{% block header %}
+    <!--=== Begin Header Parallax ===-->
+<div class="header-parallax" style=" background-color: greenyellow; width: 100%" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -200px;">
+	<div class="container" style="margin-left:40%; margin-right: 60%">
+		<div class="row">
+			<!--=== Page Title ===-->
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<h1 style="font-size: 40px;"><b>Energagement</b></h1>
+                <p style="font-size: 22px;"> &nbsp; &nbsp; &nbsp; The energy manager</p>
+			</div>
+		</div><!-- /row -->
+        <div class="row" style="margin-left: 319%; margin-bottom:-9%; display: inline-block; overflow: hidden; position: relative">
+
+                <div style="margin-right:265px; width: 49px; display:inline-block;">
+
+                        <a href="/accounts/login/"> Sign in </a>
+
+                </div>
+                <div style="margin:0px; display:inline-block; position:absolute; left:66px">
+
+                    <a href="/accounts/signup/"> <center>Sign up</center> </a>
+
+                </div>
+		</div><!-- /row -->
+	</div><!-- /container -->
+</div><!-- /page header -->
+<!--=== End Header Parallax ===-->
+{% endblock %}
+
+{% block content %}
 
 <!-- Container -->
 <div id="container">
@@ -56,7 +83,7 @@
     {% block messages %}
         {% if messages %}
         <ul class="messagelist">{% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
         {% endfor %}</ul>
         {% endif %}
     {% endblock messages %}
@@ -65,18 +92,105 @@
     <div id="content" class="{% block coltype %}colM{% endblock %}">
         {% block pretitle %}{% endblock %}
         {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
-        {% block content %}
         {% block object-tools %}{% endblock %}
         {{ content }}
-        {% endblock %}
         {% block sidebar %}{% endblock %}
         <br class="clear" />
     </div>
     <!-- END Content -->
-
-    {% block footer %}<div id="footer"></div>{% endblock %}
 </div>
 <!-- END Container -->
+
+{% endblock %}
+
+{% block footer %}
+<!--=== Begin Footer ===-->
+<div class="footer" style="bottom: 30px;">
+    <div class="container" style="width:100%">
+        <div class="row" style="width:100%">
+            <!--=== About ===-->
+            <div class="col-sm-3" style="display: inline; width: 25%">
+                <div class="heading-footer"><h4>About</h4></div>
+                <br/>
+                <br/>
+                <br/>
+
+                <p>Energagement is what you need for your next home or city project.</p>
+            </div>
+
+            <!--=== Social ===-->
+            <div class="col-sm-3 mg25-xs" style="width: 25%">
+                <div class="heading-footer"><h4>Social Networks</h4></div>
+                <a class="btn btn-social-icon btn-twitter btn-lg">
+                    <i class="fa fa-twitter"></i>
+                    <img src="{% static 'myapp/images/twitter.png' %}"/>
+                </a>
+                <a class="btn btn-social-icon btn-instagram btn-lg">
+                    <i class="fa fa-instagram"></i>
+                    <img src="{% static 'myapp/images/instagram.png' %}"/>
+                </a>
+                <a class="btn btn-social-icon btn-google-plus btn-lg">
+                    <i class="fa fa-google-plus"></i>
+                    <img src="{% static 'myapp/images/google+.png' %}"/>
+                </a>
+                <a class="btn btn-social-icon btn-facebook btn-lg">
+                    <i class="fa fa-facebook"></i>
+                    <img src="{% static 'myapp/images/facebook.png' %}"/>
+                </a>
+                <a class="btn btn-social-icon btn-linkedin btn-lg">
+                    <i class="fa fa-linkedin"></i>
+                    <img src="{% static 'myapp/images/linkedin.png' %}"/>
+                </a>
+
+            </div>
+            <!--=== Contact ===-->
+            <div class="col-sm-3 mg25-xs" style="display: inline; width: 25%">
+                <div class="heading-footer"><h4>Contact us</h4></div>
+                <br/>
+                <br/>
+                <br/>
+                <p><span class="ion-home footer-info-icons"></span><small class="address">9 Iroon Politechniou,Campus of National Technical University of Athens, Zografou 15780</small></p>
+                <p><span class="ion-email footer-info-icons"></span><small class="address"><a href="mailto:energagement@epu.ntua.gr">energagement@epu.ntua.gr</a></small></p>
+                <p><span class="ion-ios7-telephone footer-info-icons"></span><small class="address">+30-210-7723551</small></p>
+            </div>
+            <!--=== Recent Work ===-->
+            <div class="col-sm-3 hidden-xs" style="display: inline; width: 25%">
+                <div class="heading-footer"><h4>Recent Work</h4></div>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-xs-4 recent-work-padding">
+                    <a href="" class="thumbnail image-zoom-link">
+                      <img src="{% static 'myapp/images/buildings_footer.jpg' %}" alt="..." class="thumbnail img-responsive"/>
+                    </a>
+                </div>
+                <div class="col-xs-4 recent-work-padding">
+                    <a href="" class="thumbnail image-zoom-link">
+                      <<img src="{% static 'myapp/images/street_lighting_footer.jpg' %}" alt="..." class="thumbnail img-responsive"/>
+                    </a>
+                </div>
+                <div class="col-xs-4 recent-work-padding">
+                    <a href="" class="thumbnail image-zoom-link">
+                      <img src="{% static 'myapp/images/EV_footer.jpg' %}" alt="..." class="thumbnail img-responsive"/>
+                    </a>
+                </div>
+            </div>
+        </div><!-- /row -->
+        <!--=== Copyright ===-->
+        <div class="row" style="width: 100%">
+            <hr class="dark-hr">
+            <div class="col-sm-11 col-xs-10" style="width: 100%">
+                <p class="copyright">© 2013 Raleway. All rights reserved. Theme by <b>Denis Samardjiev</b>.</p>
+            </div>
+            <div class="col-sm-1 col-xs-2 text-right" style="width: 98%">
+                <a href="#" class="scroll-top"><div class="footer-scrolltop-holder"> <img src="{% static 'myapp/images/arrow.png' %}"/></div></a>
+            </div>
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div><!-- /footer -->
+<!--=== End Footer ===-->
+{% endblock %}
+
 
 </body>
 </html>

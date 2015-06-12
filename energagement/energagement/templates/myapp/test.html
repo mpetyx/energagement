@@ -1,9 +1,13 @@
-<!DOCTYPE html>
 <html>
 {% load staticfiles %}
+
+
+
+
+
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Energagement</title>
+    <title>EV</title>
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
 
     <!--Load the AJAX API-->
@@ -12,6 +16,8 @@
 
           // Load the Visualization API and the piechart package.
           google.load('visualization', '1.0', {'packages':['corechart']});
+          google.load('visualization', '1.1', {'packages':['line']});
+          //google.load('visualization', '1.0', {'packages':['corechart']});
 
           // Set a callback to run when the Google Visualization API is loaded.
           google.setOnLoadCallback(drawChart);
@@ -21,68 +27,79 @@
           // draws it.
           function drawChart() {
 
-            // Create the data table.
+            // Create
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Topping');
             data.addColumn('number', 'Slices');
             data.addRows([
-              ['Mushrooms', 3],
-              ['Onions', 1],
-              ['Olives', 1],
-              ['Zucchini', 1],
-              ['Pepperoni', 2]
+              ['Room1', 3],
+              ['Room2', 1],
+              ["", 1],
+              ['Room3', 1],
+              ['Room4', 1],
+              ['Room5', 2]
             ]);
-            // Create the data table.
+            // Create
             var data2 = new google.visualization.DataTable();
             data2.addColumn('string', 'Topping');
             data2.addColumn('number', 'Slices');
             data2.addRows([
-              ['Mushrooms', 3],
-              ['Onions', 1],
-              ['Olives', 15],
-              ['Zucchini', 1],
-              ['Pepperoni', 2]
+              ['Room1', 3],
+              ['Room2', 1],
+              ["", 1],
+              ['Room3', 1],
+              ['Room4', 1],
+              ['Room5', 2]
             ]);
 
             var data3 = new google.visualization.DataTable();
-            data3.addColumn('string', 'Year');
-            data3.addColumn('number', 'Sales');
-            data3.addColumn('number', 'Expenses');
+            data3.addColumn('string', 'Topping');
+            data3.addColumn('number', 'Slices');
             data3.addRows([
-              ['2004', 1000, 400],
-              ['2005', 1170, 460],
-              ['2006',  860, 580],
-              ['2007', 1030, 540]
+              ['Room1', 3],
+              ['Room2', 1],
+              ["", 1],
+              ['Room3', 1],
+              ['Room4', 1],
+              ['Room5', 2]
             ]);
 
             // Set chart options
-            var options = {'title':'How Much Pizza I Ate Last Night',
-                           'width':400,
-                           'height':300};
+            var options = {'title':'Pie Chart',
+                           'width':852,
+                           'height':518,
+                            'is3D':true};
             // Set chart options
-            var options2 = {'title':'How Much Pizza You Ate Last Night',
-                           'width':400,
-                           'height':300};
+            var options2 = {'title':'Bar Chart',
+                           'width':852,
+                           'height':518,
+                            'is3D':true};
             // Set chart options
             var options3 = {'title':'Line chart',
-                           'width':400,
-                           'height':300};
+                           'width':852,
+                           'height':518,
+                            'is3D':true};
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             chart.draw(data, options);
-            var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
+            var chart2 = new google.visualization.BarChart(document.getElementById('bar_chart'));
             chart2.draw(data2, options2);
-            var chart3 = new google.visualization.LineChart(document.getElementById('chart_div3'));
+            var chart3 = new google.visualization.LineChart(document.getElementById('line_chart'));
             chart3.draw(data3, options3);
 
           }
         </script>
+
 </head>
+
 <body>
-       <!--Divs that will hold the charts-->
-        <div id="chart_div"></div>
-        <div id="chart_div2"></div>
-        <div id="chart_div3"></div>
+
+                            <div id="chart_div" style="width: 100%;"></div>
+
+
+                            <div id="bar_chart" style="width: 100%;"></div>
+
+                            <div id="line_chart" style="width: 100%;"></div>
+
 </body>
-</html>

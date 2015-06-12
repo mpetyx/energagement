@@ -1,5 +1,4 @@
-{% extends "account/base.html" %}
-
+{% extends "admin/base.html" %}
 {% load i18n %}
 {% load account %}
 
@@ -11,7 +10,9 @@
     <meta charset="UTF-8">
     <title>Sign In</title>
 </head>
-<h1> <center> Energagement</center> </h1>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
 <h1>{% trans "Sign In" %}</h1>
 
 {% if socialaccount.providers %}
@@ -45,5 +46,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
   <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
   <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
 </form>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 {% endblock %}

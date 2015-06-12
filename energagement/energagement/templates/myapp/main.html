@@ -1,20 +1,37 @@
-<!DOCTYPE html>
+{% extends "admin/base.html" %}
+
 <html>
 {% load staticfiles %}
+{% load i18n %}
+{% load account %}
+
+{% block content %}
 <head lang="en">
     <meta charset="UTF-8">
     <title>Energagement</title>
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script>
+        function initialize() {
+        var mapProp = {
+            center:new google.maps.LatLng(51.508742,-0.120850),
+            zoom:5,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+        var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 </head>
 <body>
     <div class="page" style=" width: 100%; height: 100%; ">
         <p2 align="right" style="width: 80px; height: 30px; background-color:lightgray; margin-right: 2% position:relative;">
             <a href="/accounts/logout/"> <center>Logout</center> </a>
         </p2>
-        <p1 > <center style="margin-right:12%"> <b>  Energagement </b> </center>  </p1>
-        <br/>
 
-        <div class="box1" style="width: 251px; height: auto; margin-left: 10%; margin-right:auto; margin-bottom: 10%">
+        <br/><br/><br/><br/><br/><br/>
+
+        <div class="box1" style="width: 251px; height: auto; margin-left: 18%; margin-right:auto; margin-bottom: 5%">
    			<a>
                 <div style="width: 100%; background-color:#ADFF2F">
                     <a href="/p/buildings/"> <center>Buildings</center> </a>
@@ -25,7 +42,7 @@
             </div>
    	    </div>
 
-        <div class="box2" style="width: 251px; height: auto; margin-left: 10%; margin-right:auto; margin-bottom: 10%">
+        <div class="box2" style="width: 251px; height: auto; margin-left: 10%; margin-right:auto; margin-bottom: 5%">
    			<a>
                 <div style="width: 100%; background-color:#ADFF2F">
                     <a href="/p/street_lighting/"> <center>Street Lighting</center> </a>
@@ -36,7 +53,7 @@
             </div>
    	    </div>
 
-        <div class="box3" style="width: 251px; height: auto; margin-left: 10% ;margin-right:auto; margin-bottom: 10%">
+        <div class="box3" style="width: 251px; height: auto; margin-left: 10% ;margin-right:auto; margin-bottom: 5%">
    			<a>
                  <div style="width: 100%; background-color:#ADFF2F">
                     <a href="/p/EV/"> <center>EV</center> </a>
@@ -46,7 +63,13 @@
                 <a href="/p/EV/"> <img src="{% static 'myapp/images/EV1.jpg' %}"/> </a>
             </div>
    	    </div>
+        <div id="googleMap" style="width:35%;height:400px; margin-left: 35%"></div>
+        <br/><br/><br/><br/>
+        <div class="row" style="width:100%; height: 50px">
+        </div>
 
     </div>
 </body>
+
+{% endblock %}
 </html>
