@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-
+import myapp
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'energagement.views.home', name='home'),
@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^p/', include('myapp.urls'))
+    url(r'^p/', include('myapp.urls')),
+    url(r'^$', myapp.views.home, name='home'),
 
 )
