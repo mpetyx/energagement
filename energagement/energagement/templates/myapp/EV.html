@@ -18,7 +18,7 @@
 
           // Load the Visualization API and the piechart package.
           google.load('visualization', '1', {'packages':['corechart']});
-         // google.load('visualization', '1.1', {'packages':['line']});
+          // google.load('visualization', '1.1', {'packages':['line']});
           //google.load('visualization', '1.0', {'packages':['corechart']});
 
           // Set a callback to run when the Google Visualization API is loaded.
@@ -34,12 +34,9 @@
             data.addColumn('string', 'Topping');
             data.addColumn('number', 'Slices');
             data.addRows([
-              ['Room1', 3],
-              ['Room2', 1],
-              ["", 1],
-              ['Room3', 1],
-              ['Room4', 1],
-              ['Room5', 2]
+              ['EV1', 3],
+              ['EV2', 1],
+              ['EV3', 1]
             ]);
             // Create
             var data2 = new google.visualization.DataTable();
@@ -98,20 +95,21 @@
         <p2 align="right" style="width: 80px; height: 30px; background-color:lightgray; margin-right: 2% position:relative;">
             <a href="/accounts/logout/"> <center>Logout</center> </a>
         </p2>
-        <br/><br/><br/>
+        <br/><br/>
         <h1 style="margin-left:40%"> My Electronic Vehicles </h1>
+        <br/>
         <div style="width: 30%; height: 500px; margin-left: 2%; margin-right:auto; margin-bottom: 10%">
    			<a>
                 <div style="width: 100%; background-color:#ADFF2F">
-                    <a style="color: green"> <center>EV</center> </a>
+                    <a style="color: green; font-size: 23px;"> <center>EV</center> </a>
                 </div>
             </a>
             <a>
                 <div style="width: 100%; height: 47.5%; background-color:lightgray">
                      <a>
-                            {{ form.as_p }}
-                            {{ form.as_p }}
-                            {{ form.as_p }}
+                            {{ form1.as_p }}
+                            {{ form2.as_p }}
+                            {{ form3.as_p }}
                      </a>
                 </div>
             </a>
@@ -123,15 +121,15 @@
 
             <a>
                 <div style="width: 100%; background-color:#ADFF2F">
-                    <a style="color: green"> <center>Energy Indicators</center> </a>
+                    <a style="color: green; font-size: 23px;"> <center>Energy Indicators</center> </a>
                 </div>
             </a>
             <a>
                 <div style="width: 100%; height: 47.5%; background-color:lightgray">
                      <a>
-                         {{ form.as_p }}
-                         {{ form.as_p }}
-                         {{ form.as_p }}
+                         {{ form4.as_p }}
+                         {{ form5.as_p }}
+                         {{ form6.as_p }}
                      </a>
                 </div>
             </a>
@@ -139,7 +137,7 @@
         <div style="width: 64%; height: 800px; margin-left: 2%; margin-right:auto; margin-bottom: 10%">
 
                 <div style="width: 100%; background-color:#ADFF2F">
-                    <a style="color: green"> <center>Diagrams</center> </a>
+                    <a style="color: green; font-size: 23px;"> <center>Diagrams</center> </a>
                 </div>
 
                 <div class="row1" style="width:100%; margin-top: 1%">
@@ -171,7 +169,7 @@
                             </form>
                         </div>
                         <a style="float: right;">
-                            {{form.as_p}}
+                            {{choose_time.as_p}}
                         </a>
                     </div>
                  </div>
@@ -181,17 +179,17 @@
                      <!--<a>-->
                          <center>
                          {% ifequal diagram 'line' %}
-                            {{diagram}}
+
                             <!--Divs that will hold the charts-->
                             <div id="line_chart" style="width: 100%;"></div>
                          {% endifequal %}
                          {% ifequal diagram 'bar' %}
-                            {{diagram}}
+
                             <!--Divs that will hold the charts-->
                             <div id="bar_chart" style="width: 100%;"></div>
                          {% endifequal %}
                          {% ifequal diagram 'pie' %}
-                            {{diagram}}
+                            
                             <!--Divs that will hold the charts-->
                             <div id="pie_chart" style="width: 100%;"></div>
                          {% endifequal %}
