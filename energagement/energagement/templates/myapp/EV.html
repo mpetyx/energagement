@@ -65,18 +65,12 @@
 
             // Set chart options
             var options = {'title':'Pie Chart',
-                           'width':852,
-                           'height':518,
                             'is3D':true};
             // Set chart options
             var options2 = {'title':'Bar Chart',
-                           'width':852,
-                           'height':518,
                             'is3D':true};
             // Set chart options
             var options3 = {'title':'Line chart',
-                           'width':852,
-                           'height':518,
                             'is3D':true};
 
             // Instantiate and draw our chart, passing in some options.
@@ -181,17 +175,17 @@
                          {% ifequal diagram 'line' %}
 
                             <!--Divs that will hold the charts-->
-                            <div id="line_chart" style="width: 100%;"></div>
+                            <div id="line_chart" style="width: 100%; height: 100%;"></div>
                          {% endifequal %}
                          {% ifequal diagram 'bar' %}
 
                             <!--Divs that will hold the charts-->
-                            <div id="bar_chart" style="width: 100%;"></div>
+                            <div id="bar_chart" style="width: 100%; height: 100%;"></div>
                          {% endifequal %}
                          {% ifequal diagram 'pie' %}
-                            
+
                             <!--Divs that will hold the charts-->
-                            <div id="pie_chart" style="width: 100%;"></div>
+                            <div id="pie_chart" style="width: 100%; height: 100%;"></div>
                          {% endifequal %}
                          </center>
                      <!--</a>-->
