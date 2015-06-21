@@ -63,7 +63,11 @@ def EV(request):
         return render(request, 'myapp/EV.html', {'form1':form1, 'form2':form2, 'form3':form3,'form4':form4,'form5':form5,'form6':form6,'choose_time':choose_time,'diagram':diagram},)
 
 
+
 def test(request):
 
     return render_to_response('myapp/test.html')
 
+def test2(request):
+
+    return render_to_response('myapp/test2.html')

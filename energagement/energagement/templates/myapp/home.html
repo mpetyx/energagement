@@ -1,32 +1,16 @@
 <!DOCTYPE html>
-{% extends "admin/base.html" %}
+{% extends "myapp/base2.html" %}
 <html>
 {% load staticfiles %}
+
 <head lang="en">
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        DJANGO_STATIC_URL = '{% static 'myapp/images' %}';
-    </script>
 
-    <script type=”text/javascript”>
 
-        var image1 = new Image()
-
-        image1.src = " {{DJANGO_STATIC_URL}}/hand.jpg ”
-
-        var image2 = new Image()
-
-        image2.src = " {{DJANGO_STATIC_URL}}/green_buildings.jpg”
-
-        var image3 = new Image()
-
-        image3.src = " {{DJANGO_STATIC_URL}}/background.jpg”
-
-    </script>
 
 </head>
 
@@ -35,8 +19,7 @@
 <body style="height: 100%">
 
 
-<br/>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 <ul id="recent-projects" class="col-sm-12 text-center" style="display: inline">
     <!--=== Begin Item 1 ===-->
@@ -66,32 +49,6 @@
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             </div>
 
-
-
-            <!--<p><img src="{% static 'myapp/images/hand.jpg' %}" style=" width=”500”; height=”300”;" name=”slide”;/></p>
-
-            <script type=”text/javascript”>
-
-                var step=1;
-
-                function slideit(){
-
-                document.images.slide.src = eval(“image”+step+”.src”);
-
-                if(step<3)
-
-                                step++;
-
-                else
-
-                                step=1;
-
-                setTimeout(“slideit()”,2500);
-
-                }
-
-                slideit();
-            </script> -->
 
         </div>
         <div class="border" style="width:30%;">
@@ -148,9 +105,30 @@
     <!--=== End Item 1 ===-->
 
 </ul><!-- /portfolio ul -->
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
-<br/>
-    <br/>
+        <center><img src="{% static 'myapp/images/green_buildings.jpg' %}" width="500" height="300" name="slide" /></center>
+        <script type="text/javascript">
+            var step=1;
+            function slideit()
+            {
+                var DJANGO_STATIC_URL = "{% static 'myapp/images/'%}";
+                var image1 = new Image();
+                image1.src = DJANGO_STATIC_URL+"green_buildings.jpg";
+                var image2 = new Image();
+                image2.src = DJANGO_STATIC_URL+"hand.jpg";
+                //var step=1;
+                document.images.slide.src = eval("image"+step+".src")
+                if(step<2)
+                    step++
+                else
+                    step=1
+                setTimeout("slideit()",2500)
+            }
+            slideit()
+        </script>
+
+<br/><br/>
 
 </body>
 

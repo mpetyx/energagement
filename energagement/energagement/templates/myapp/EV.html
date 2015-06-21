@@ -1,4 +1,4 @@
-{% extends "admin/base.html" %}
+{% extends "myapp/base1.html" %}
 
 <html>
 {% load staticfiles %}
@@ -42,10 +42,11 @@
             var data2 = new google.visualization.DataTable();
             data2.addColumn('string', 'Topping');
             data2.addColumn('number', 'Slices');
+
             data2.addRows([
               ['Room1', 3],
               ['Room2', 1],
-              ["", 1],
+              ['', 1],
               ['Room3', 1],
               ['Room4', 1],
               ['Room5', 2]
@@ -57,7 +58,7 @@
             data3.addRows([
               ['Room1', 3],
               ['Room2', 1],
-              ["", 1],
+              ['', 1],
               ['Room3', 1],
               ['Room4', 1],
               ['Room5', 2]
@@ -82,6 +83,11 @@
             chart3.draw(data3, options3);
           }
         </script>
+
+
+
+
+
 
 </head>
 <body>
@@ -172,6 +178,10 @@
                 <div style="width: 100%; height: 80%; background-color:lightgray">
                      <!--<a>-->
                          <center>
+                         {% ifequal diagram 'line' %}
+                            <!--Divs that will hold the charts-->
+                            <div id="line_chart" style="width: 100%; height: 100%;"></div>
+                         {% endifequal %}
                          {% ifequal diagram 'line' %}
 
                             <!--Divs that will hold the charts-->
