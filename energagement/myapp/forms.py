@@ -1,4 +1,5 @@
 from django import forms
+from .models import StreetLighting
 
 # Create your forms here.
 # class myForm(forms.Form):
@@ -15,9 +16,14 @@ from django import forms
 #     )
 
 #attrs={'onclick':"alert('foo !');"}),
+test=StreetLighting.objects.get(id=1).municipality
+#i=0
+#for test in StreetLighting.objects.get():
+ #   class myForm[i](forms.Form):
+  #      EV[i] = forms.BooleanField(widget=forms.CheckboxInput(attrs={}),required=True, label=test.code)
 
 class myForm1(forms.Form):
-    EV1 = forms.BooleanField(widget=forms.CheckboxInput(attrs={}),required=True, label="EV1")
+    EV1 = forms.BooleanField(widget=forms.CheckboxInput(attrs={}),required=True, label=test)
 
 class myForm2(forms.Form):
     EV2 = forms.BooleanField(widget=forms.CheckboxInput(attrs={}),required=True, label="EV2")

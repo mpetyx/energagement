@@ -7,6 +7,7 @@ from .forms import myForm4
 from .forms import myForm5
 from .forms import myForm6
 from .forms import my_choose_time
+from .models import StreetLighting
 
 from django.http import HttpResponseRedirect
 import cgi
@@ -46,7 +47,9 @@ def EV(request):
             # ...
             # redirect to a new URL:
           #  return HttpResponseRedirect('/thanks/')
-        return render(request, 'myapp/EV.html', {'form1':form1,'form2':form2,'form3':form3,'form4':form4,'form5':form5,'form6':form6, 'choose_time':choose_time, 'diagram':diagram})
+        test=StreetLighting.objects.get(id=1)
+
+        return render(request, 'myapp/EV.html', {'form1':form1,'form2':form2,'form3':form3,'form4':form4,'form5':form5,'form6':form6, 'choose_time':choose_time, 'diagram':diagram, 'test':test},)
     #form=myForm()
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -60,7 +63,9 @@ def EV(request):
         form5 = myForm5()
         form6 = myForm6()
         choose_time = my_choose_time()
-        return render(request, 'myapp/EV.html', {'form1':form1, 'form2':form2, 'form3':form3,'form4':form4,'form5':form5,'form6':form6,'choose_time':choose_time,'diagram':diagram},)
+
+        test=StreetLighting.objects.get(id=1)
+        return render(request, 'myapp/EV.html', {'form1':form1, 'form2':form2, 'form3':form3,'form4':form4,'form5':form5,'form6':form6,'choose_time':choose_time,'diagram':diagram, 'test':test},)
 
 
 

@@ -22,66 +22,95 @@
           //google.load('visualization', '1.0', {'packages':['corechart']});
 
           // Set a callback to run when the Google Visualization API is loaded.
-          google.setOnLoadCallback(drawChart);
+          google.setOnLoadCallback(drawLineChart);
 
           // Callback that creates and populates a data table,
           // instantiates the pie chart, passes in the data and
           // draws it.
-          function drawChart() {
+          function drawLineChart() {
 
-            // Create
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-              ['EV1', 3],
-              ['EV2', 1],
-              ['EV3', 1]
-            ]);
-            // Create
-            var data2 = new google.visualization.DataTable();
-            data2.addColumn('string', 'Topping');
-            data2.addColumn('number', 'Slices');
+              // Create
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'Topping');
+              data.addColumn('number', 'Slices');
+              data.addRows([
+               ['Room1', 3],
+               ['Room2', 1],
+               ['', 1],
+               ['Room3', 1],
+               ['Room4', 1],
+               ['Room5', 2]
+              ]);
 
-            data2.addRows([
-              ['Room1', 3],
-              ['Room2', 1],
-              ['', 1],
-              ['Room3', 1],
-              ['Room4', 1],
-              ['Room5', 2]
-            ]);
+              // Set chart options
+              var options = {
+                  'title': 'Line Chart',
+                  'is3D': true
+              };
 
-            var data3 = new google.visualization.DataTable();
-            data3.addColumn('string', 'Topping');
-            data3.addColumn('number', 'Slices');
-            data3.addRows([
-              ['Room1', 3],
-              ['Room2', 1],
-              ['', 1],
-              ['Room3', 1],
-              ['Room4', 1],
-              ['Room5', 2]
-            ]);
+              var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+              chart.draw(data, options);
 
-            // Set chart options
-            var options = {'title':'Pie Chart',
-                            'is3D':true};
-            // Set chart options
-            var options2 = {'title':'Bar Chart',
-                            'is3D':true};
-            // Set chart options
-            var options3 = {'title':'Line chart',
-                            'is3D':true};
-
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
-            chart.draw(data, options);
-            var chart2 = new google.visualization.BarChart(document.getElementById('bar_chart'));
-            chart2.draw(data2, options2);
-            var chart3 = new google.visualization.LineChart(document.getElementById('line_chart'));
-            chart3.draw(data3, options3);
           }
+
+          google.setOnLoadCallback(drawBarChart);
+
+          // Callback that creates and populates a data table,
+          // instantiates the pie chart, passes in the data and
+          // draws it.
+          function drawBarChart() {
+
+              // Create
+              var data2 = new google.visualization.DataTable();
+              data2.addColumn('string', 'Topping');
+              data2.addColumn('number', 'Slices');
+
+              data2.addRows([
+               ['Room1', 3],
+               ['Room2', 1],
+               ['', 1],
+               ['Room3', 1],
+               ['Room4', 1],
+               ['Room5', 2]
+              ]);
+
+              // Set chart options
+              var options2 = {'title':'Bar Chart',
+                            'is3D':true};
+
+              var chart2 = new google.visualization.BarChart(document.getElementById('bar_chart'));
+              chart2.draw(data2, options2);
+
+          }
+
+          google.setOnLoadCallback(drawPieChart);
+
+          // Callback that creates and populates a data table,
+          // instantiates the pie chart, passes in the data and
+          // draws it.
+          function drawPieChart() {
+
+              var data3 = new google.visualization.DataTable();
+              data3.addColumn('string', 'Topping');
+              data3.addColumn('number', 'Slices');
+              data3.addRows([
+              ['Room1', 3],
+              ['Room2', 1],
+              ['', 1],
+              ['Room3', 1],
+              ['Room4', 1],
+              ['Room5', 2]
+              ]);
+
+              // Set chart options
+              var options3 = {'title':'Pie chart',
+                            'is3D':true};
+
+              var chart3 = new google.visualization.PieChart(document.getElementById('pie_chart'));
+              chart3.draw(data3, options3);
+
+          }
+
         </script>
 
 
@@ -178,7 +207,7 @@
                 <div style="width: 100%; height: 80%; background-color:lightgray">
                      <!--<a>-->
                          <center>
-                         {% ifequal diagram 'line' %}
+                         {% ifequal diagram None %}
                             <!--Divs that will hold the charts-->
                             <div id="line_chart" style="width: 100%; height: 100%;"></div>
                          {% endifequal %}
