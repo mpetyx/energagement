@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Value(models.Model):
-    timestamp = models.DateField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
     metric = models.TextField()
 
 class Buffer(models.Model):
@@ -73,6 +73,7 @@ class ElectricVehicle(models.Model):
 
 
 class StreetLighting(models.Model):
+    values=models.ManyToManyField(Value,null=True, blank=True)
     code = models.IntegerField(default=0)
     municipality = models.CharField(max_length=200, default="Athens")
 

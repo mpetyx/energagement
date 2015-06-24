@@ -6,8 +6,12 @@ from .forms import myForm3
 from .forms import myForm4
 from .forms import myForm5
 from .forms import myForm6
+
 from .forms import my_choose_time
+from .forms import my_EV
 from .models import StreetLighting
+from django.http import HttpResponse
+import json
 
 from django.http import HttpResponseRedirect
 import cgi
@@ -40,16 +44,19 @@ def EV(request):
         form4 = myForm4(request.GET)
         form5 = myForm5(request.GET)
         form6 = myForm6(request.GET)
+       # form = UnknownForm(request.POST)
+
         choose_time = my_choose_time(request.GET)
+        EV_ = my_EV(request.GET)
         # check whether it's valid:
         #if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
           #  return HttpResponseRedirect('/thanks/')
-        test=StreetLighting.objects.get(id=1)
+        test=list(StreetLighting.objects.all())
 
-        return render(request, 'myapp/EV.html', {'form1':form1,'form2':form2,'form3':form3,'form4':form4,'form5':form5,'form6':form6, 'choose_time':choose_time, 'diagram':diagram, 'test':test},)
+        return render(request, 'myapp/EV.html', {'EV_':EV_,'form1':form1,'form2':form2,'form3':form3,'form4':form4,'form5':form5,'form6':form6, 'choose_time':choose_time, 'diagram':diagram, 'test':test},)
     #form=myForm()
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -63,9 +70,11 @@ def EV(request):
         form5 = myForm5()
         form6 = myForm6()
         choose_time = my_choose_time()
+       # form = UnknownForm(request.POST)
+        EV_ = my_EV()
 
-        test=StreetLighting.objects.get(id=1)
-        return render(request, 'myapp/EV.html', {'form1':form1, 'form2':form2, 'form3':form3,'form4':form4,'form5':form5,'form6':form6,'choose_time':choose_time,'diagram':diagram, 'test':test},)
+        test=list(StreetLighting.objects.all())
+        return render(request, 'myapp/EV.html', {'EV_':EV_,'form1':form1, 'form2':form2, 'form3':form3,'form4':form4,'form5':form5,'form6':form6,'choose_time':choose_time,'diagram':diagram, 'test':test},)
 
 
 
@@ -76,3 +85,23 @@ def test(request):
 def test2(request):
 
     return render_to_response('myapp/test2.html')
+
+def aggelos(request):
+    return render(request, 'myapp/aggelos.html', {})
+
+def aggelos_data(request):
+    status = request.GET['state']
+    data = StreetLighting.objects.all()
+    if status == "true":
+        json_list = []
+        for item in data:
+            json_item = {'dimos': item.municipality,
+                         'kwdikos': item.code
+            }
+            json_list.append(json_item)
+    else:
+        json_list = [
+            {'karekla': 'Aggelou', 'upsos':5},
+            {'karekla':"Vasilikis", "upsos": 2}
+        ]
+    return HttpResponse(json.dumps(json_list), content_type='application/json')

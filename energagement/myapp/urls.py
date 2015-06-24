@@ -13,4 +13,7 @@ urlpatterns = patterns('',
     url(r'^EV/', views.EV, name='EV'),
     url(r'^test/', views.test, name='test'),
     url(r'^test2/', views.test2, name='test2'),
+    url(r'^aggelos/', views.aggelos, name='aggelos'),
+    url(r'^aggelos_data/', views.aggelos_data, name='aggelos_data')
+
 )

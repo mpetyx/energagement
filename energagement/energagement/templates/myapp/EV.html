@@ -1,6 +1,6 @@
 {% extends "myapp/base1.html" %}
 
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 {% load staticfiles %}
 
 {% block content %}
@@ -14,7 +14,9 @@
 
     <!--Load the AJAX API-->
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script>
 
           // Load the Visualization API and the piechart package.
           google.load('visualization', '1', {'packages':['corechart']});
@@ -33,14 +35,33 @@
               var data = new google.visualization.DataTable();
               data.addColumn('string', 'Topping');
               data.addColumn('number', 'Slices');
+              //var list1="{{test}}";
+              /*{% for item in test %}
               data.addRows([
-               ['Room1', 3],
-               ['Room2', 1],
-               ['', 1],
-               ['Room3', 1],
-               ['Room4', 1],
-               ['Room5', 2]
+               ['{{test.municipality}}', {{test.code}}],
               ]);
+                  {% endfor %}
+                */
+              var list2 = (("{{test}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                return {
+                    l   : '<',
+                    g   : '>',
+                    quo : '"'
+                }[b];
+              }));
+              var json=JSON.stringify(list2);
+              var list1 = JSON.parse(json);
+              console.log(list1[0]);
+              console.log(list1[1]);
+              console.log(list1[2]);
+              console.log(list1[3]);
+              console.log(list1[4]);
+              console.log(list1[5]);
+              //  for (i=0; i<=list1.length; i++){
+                //    data.addRows([
+                  //      ['list1[i]', list1[i+1]],
+                   // ]);
+              //}
 
               // Set chart options
               var options = {
@@ -111,7 +132,7 @@
 
           }
 
-        </script>
+
 
 
 
@@ -136,9 +157,16 @@
             <a>
                 <div style="width: 100%; height: 47.5%; background-color:lightgray">
                      <a>
-                            {{ form1.as_p }}
-                            {{ form2.as_p }}
-                            {{ form3.as_p }}
+                         <form action="">
+                            {% for item in test %}
+                               <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
+                                   <input type="checkbox" id="{{item.id}}" name="{{item.municipality}}">
+                                        {{ item.municipality }}
+                                    </input>
+                               </ul>
+                            {% endfor %}
+                        </form>
+
                      </a>
                 </div>
             </a>

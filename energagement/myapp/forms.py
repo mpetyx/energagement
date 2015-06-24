@@ -16,14 +16,10 @@ from .models import StreetLighting
 #     )
 
 #attrs={'onclick':"alert('foo !');"}),
-test=StreetLighting.objects.get(id=1).municipality
-#i=0
-#for test in StreetLighting.objects.get():
- #   class myForm[i](forms.Form):
-  #      EV[i] = forms.BooleanField(widget=forms.CheckboxInput(attrs={}),required=True, label=test.code)
+
 
 class myForm1(forms.Form):
-    EV1 = forms.BooleanField(widget=forms.CheckboxInput(attrs={}),required=True, label=test)
+    EV1 = forms.BooleanField(widget=forms.CheckboxInput(attrs={}),required=True, label="EV1")
 
 class myForm2(forms.Form):
     EV2 = forms.BooleanField(widget=forms.CheckboxInput(attrs={}),required=True, label="EV2")
@@ -42,3 +38,6 @@ class myForm6(forms.Form):
 
 class my_choose_time(forms.Form):
     choose_time = forms.ChoiceField(choices=[(x, x) for x in ('hour', 'day', 'week', 'month')])
+
+class my_EV(forms.Form):
+   EV = forms.ChoiceField(choices=[(x, x) for x in ([StreetLighting.objects.all()])])
