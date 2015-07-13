@@ -14,6 +14,24 @@ body {
             display: inline-block;
 }
 
+table, th, td {
+    border: 1px beige;
+
+    }
+
+td{
+    margin-left: 2px;
+}
+
+/*  Define the background color for all the ODD background rows  */
+tr:nth-child(odd){
+		background: #b8d1f3;
+	}
+	/*  Define the background color for all the EVEN background rows  */
+tr:nth-child(even){
+		background: #dae5f4;
+	}
+
 div{
     display: block;
     float:left;
@@ -335,11 +353,7 @@ a:hover {
     color: green;
 }
 
-tr, th, td {
-    border: 0px solid black;
-}
 
-table {border: 0px solid grey;}
 
 div.chart{
 	border: solid thin silver;

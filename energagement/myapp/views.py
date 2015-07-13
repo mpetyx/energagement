@@ -9,12 +9,14 @@ from .forms import myForm6
 
 from .forms import my_choose_time
 from .forms import my_EV
-from .models import StreetLighting
+from .models import *
 from django.http import HttpResponse
 import json
+from datetime import datetime
 
 from django.http import HttpResponseRedirect
 import cgi
+
 
 def home(request):
 
@@ -25,15 +27,17 @@ def main(request):
 
     return render_to_response('myapp/main.html')
 
+
 def buildings(request):
 
     return render_to_response('myapp/buildings.html')
+
 
 def street_lighting(request):
 
     return render_to_response('myapp/street_lighting.html')
 
-def EV(request):
+"""def EV(request):
 
     if request.method == 'GET':
         diagram = None
@@ -56,7 +60,8 @@ def EV(request):
           #  return HttpResponseRedirect('/thanks/')
         test=list(StreetLighting.objects.all())
 
-        return render(request, 'myapp/EV.html', {'EV_':EV_,'form1':form1,'form2':form2,'form3':form3,'form4':form4,'form5':form5,'form6':form6, 'choose_time':choose_time, 'diagram':diagram, 'test':test},)
+        return render(request, 'myapp/EV.html', {'EV_':EV_,'form1':form1,'form2':form2,'form3':form3,'form4':form4,
+        'form5':form5,'form6':form6, 'choose_time':choose_time, 'diagram':diagram, 'test':test},)
     #form=myForm()
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -74,34 +79,182 @@ def EV(request):
         EV_ = my_EV()
 
         test=list(StreetLighting.objects.all())
-        return render(request, 'myapp/EV.html', {'EV_':EV_,'form1':form1, 'form2':form2, 'form3':form3,'form4':form4,'form5':form5,'form6':form6,'choose_time':choose_time,'diagram':diagram, 'test':test},)
+        return render(request, 'myapp/EV.html', {'EV_':EV_,'form1':form1, 'form2':form2, 'form3':form3,
+        'form4':form4,'form5':form5,'form6':form6,'choose_time':choose_time,'diagram':diagram, 'test':test},)
+"""
 
+def EV(request):
+
+    return render_to_response('myapp/EV.html')
 
 
 def test(request):
 
     return render_to_response('myapp/test.html')
 
-def test2(request):
 
-    return render_to_response('myapp/test2.html')
+#def test2(request):
 
-def aggelos(request):
-    return render(request, 'myapp/aggelos.html', {})
+  #  return render_to_response('myapp/test2.html')
 
-def aggelos_data(request):
-    status = request.GET['state']
-    data = StreetLighting.objects.all()
+
+def mydata(request):
+    test1 = list(StreetLighting1.objects.all())
+    return render(request, 'myapp/mydata.html', {'test1': test1},)
+
+def data_kwh(request):
+
+    status = request.GET['state_kwh']
+   # status2 = request.GET['state2']
+
+    #data = StreetLighting.objects.get()
+
     if status == "true":
         json_list = []
-        for item in data:
-            json_item = {'dimos': item.municipality,
-                         'kwdikos': item.code
-            }
+        data1 = StreetLighting1.objects.get(id=1)
+        #for item in data1:
+        kwh = data1.kwh.all()
+        for item2 in kwh:
+            json_item = {'dimos': data1.municipality,
+                         'kwdikos': data1.code,
+                         'metric': item2.metric,
+                         'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
             json_list.append(json_item)
     else:
-        json_list = [
-            {'karekla': 'Aggelou', 'upsos':5},
-            {'karekla':"Vasilikis", "upsos": 2}
-        ]
+        json_list = []
+
+    return HttpResponse(json.dumps(json_list), content_type='application/json')
+
+def data_kwh2(request):
+
+    status = request.GET['state_kw2']
+   # status2 = request.GET['state2']
+
+    #data = StreetLighting.objects.get()
+
+    if status == "true":
+        json_list = []
+        data1 = StreetLighting1.objects.get(id=2)
+        #for item in data1:
+        kwh = data1.kwh.all()
+        for item2 in kwh:
+            json_item = {'dimos': data1.municipality,
+                         'kwdikos': data1.code,
+                         'metric': item2.metric,
+                         'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+            json_list.append(json_item)
+    else:
+        json_list = []
+
+    return HttpResponse(json.dumps(json_list), content_type='application/json')
+
+def data_kwh1_2(request):
+
+    status = request.GET['state_kwh1_2']
+   # status2 = request.GET['state2']
+
+    #data = StreetLighting.objects.get()
+
+    if status == "true":
+        json_list = []
+        data1 = StreetLighting1.objects.get(id=1)
+        #for item in data1:
+        kwh = data1.kwh.all()
+        for item2 in kwh:
+            json_item = {'dimos': data1.municipality,
+                         'kwdikos': data1.code,
+                         'metric': item2.metric,
+                         'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+            json_list.append(json_item)
+        data1 = StreetLighting1.objects.get(id=2)
+        #for item in data1:
+        kwh = data1.kwh.all()
+        for item2 in kwh:
+            json_item = {'dimos': data1.municipality,
+                         'kwdikos': data1.code,
+                         'metric': item2.metric,
+                         'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+            json_list.append(json_item)
+    else:
+        json_list = []
+
+    return HttpResponse(json.dumps(json_list), content_type='application/json')
+
+def data_test(request):
+
+    status = request.GET['state']
+   # status2 = request.GET['state2']
+
+    #data = StreetLighting.objects.get()
+
+    if status == "true":
+        json_list = []
+        data1 = StreetLighting1.objects.get(id=1)
+        #for item in data1:
+        kw = data1.kw.all()
+        for item2 in kw:
+            json_item = {'dimos': data1.municipality,
+                         'kwdikos': data1.code,
+                         'metric': item2.metric,
+                         'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+            json_list.append(json_item)
+    else:
+        json_list = []
+
+    return HttpResponse(json.dumps(json_list), content_type='application/json')
+
+def data_test2(request):
+
+    status2 = request.GET['state2']
+
+    #data = StreetLighting.objects.get()
+
+    if status2 == "true":
+        json_list = []
+        data1 = StreetLighting1.objects.get(id=2)
+        #for item in data1:
+        kw = data1.kw.all()
+        for item2 in kw:
+            json_item = {'dimos': data1.municipality,
+                         'kwdikos': data1.code,
+                         'metric': item2.metric,
+                         'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+            json_list.append(json_item)
+
+    else:
+        json_list = []
+
+    return HttpResponse(json.dumps(json_list), content_type='application/json')
+
+
+def data_test1_2(request):
+
+    status1_2 = request.GET['state1_2']
+
+    #data = StreetLighting.objects.get()
+
+    if status1_2 == "true":
+        json_list = []
+        data1 = StreetLighting1.objects.get(id=1)
+        #for item in data1:
+        kw = data1.kw.all()
+        for item2 in kw:
+            json_item = {'dimos': data1.municipality,
+                         'kwdikos': data1.code,
+                         'metric': item2.metric,
+                         'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+            json_list.append(json_item)
+        data1 = StreetLighting1.objects.get(id=2)
+        #for item in data1:
+        kw = data1.kw.all()
+        for item2 in kw:
+            json_item = {'dimos': data1.municipality,
+                         'kwdikos': data1.code,
+                         'metric': item2.metric,
+                         'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+            json_list.append(json_item)
+
+    else:
+        json_list = []
+
     return HttpResponse(json.dumps(json_list), content_type='application/json')

@@ -30,13 +30,14 @@
                 <div style="width: 100%; height: 47.5%; background-color:lightgray">
                      <a>
 
-                               <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
-                                   <input type="checkbox" class="graph-button">EV1</input>
-                                   <br/>
-                                   <input type="checkbox" class="graph-button">EV2</input>
-                                   <br/>
-                                   <input type="checkbox" class="graph-button">EV3</input>
-                               </ul>
+                         <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
+                             <input type="checkbox" class="graph-button">EV1</input>
+                             <br/>
+                             <input type="checkbox" class="graph-button2">EV2</input>
+                             <br/>
+                             <input type="checkbox" class="graph-button3">EV3</input>
+                         </ul>
+
 
 
                      </a>
@@ -72,28 +73,25 @@
 
                     <div style="display: inline; width: 100%">
                         <div style="width: 4%">
-                            <form action="/p/EV/" method="post" >
-                                {% csrf_token %}
-                                <input type="image" name="diagram" value="line"  src="{% static 'myapp/images/line_chart.png' %}" alt="Submit Form" />
-                            </form>
+
+                                <input type="image" class="line" name="diagram" value="line"  src="{% static 'myapp/images/line_chart.png' %}" alt="Submit Form" />
+
                         </div>
                         <div style="width: 4%">
-                            <form action="/p/EV/" method="post">
-                                {% csrf_token %}
-                                <input type="image" name="diagram" value="bar"  src="{% static 'myapp/images/bar_chart.jpg' %}" alt="Submit Form" />
-                            </form>
+
+
+                                <input type="image" class="bar" name="diagram" value="bar"  src="{% static 'myapp/images/bar_chart.jpg' %}" alt="Submit Form" />
+
                         </div>
                         <div style="width: 4%">
-                            <form action="/p/EV/" method="post">
-                                {% csrf_token %}
-                                <input type="image" name="diagram" value="pie"  src="{% static 'myapp/images/pie_chart2.png' %}" alt="Submit Form" />
-                            </form>
+
+                                <input type="image" class="pie" name="diagram" value="pie"  src="{% static 'myapp/images/pie_chart2.png' %}" alt="Submit Form" />
+
                         </div>
                         <div style="width: 4%">
-                            <form action="/p/EV/" method="post">
-                                {% csrf_token %}
+
                                 <input type="image" name="diagram" value="table"  src="{% static 'myapp/images/table.jpg' %}" alt="Submit Form" />
-                            </form>
+
                         </div>
                         <a style="float: right;">
                             {{choose_time.as_p}}
@@ -110,13 +108,132 @@
    	    </div>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </div>
+
     <script type="text/javascript">
     var svg = dimple.newSvg(".diagram_area", 800, 600);
-    $('.graph-button').on('change', function(){
+    $('.pie').on('click', function() {
+        $('.graph-button').on('change', function () {
+
+            $.ajax({
+                type: "get",
+                data: {state: $('.graph-button').prop('checked').toString(), csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://127.0.0.1:8000/p/aggelos_data/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                    window.location.reload();
+                },
+                success: function (response) {
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    if ($('.graph-button').prop('checked')) {
+                        chart.addCategoryAxis("x", "kwdikos");
+                        chart.addMeasureAxis("y", "metric");
+                    }
+                    else {
+                        chart.addCategoryAxis("x", "karekla");
+                        chart.addMeasureAxis("y", "upsos");
+                    }
+                    chart.addSeries(null, dimple.plot.pie);
+                    chart.draw();
+                }
+            })
+        })
+    })
+    $('.bar').on('click', function() {
+        $('.graph-button').on('change', function () {
+
+            $.ajax({
+                type: "get",
+                data: {state: $('.graph-button').prop('checked').toString(), csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://127.0.0.1:8000/p/aggelos_data/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                    window.location.reload();
+                },
+                success: function (response) {
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    if ($('.graph-button').prop('checked')) {
+                        chart.addCategoryAxis("x", "kwdikos");
+                        chart.addMeasureAxis("y", "metric");
+                    }
+                    else {
+                        chart.addCategoryAxis("x", "karekla");
+                        chart.addMeasureAxis("y", "upsos");
+                    }
+                    chart.addSeries(null, dimple.plot.bar);
+                    chart.draw();
+                }
+            })
+        })
+    })
+    $('.line').on('click', function() {
+        $('.graph-button').on('change', function () {
+
+            $.ajax({
+                type: "get",
+                data: {state: $('.graph-button').prop('checked').toString(), csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://127.0.0.1:8000/p/aggelos_data/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                    window.location.reload();
+                },
+                success: function (response) {
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    if ($('.graph-button').prop('checked')) {
+                        chart.addCategoryAxis("x", "kwdikos");
+                        chart.addMeasureAxis("y", "metric");
+                    }
+                    else {
+                        chart.addCategoryAxis("x", "karekla");
+                        chart.addMeasureAxis("y", "upsos");
+                    }
+                    chart.addSeries(null, dimple.plot.line);
+                    chart.draw();
+                }
+            })
+        })
+    })
+    $('.graph-button').on('change', function () {
+
+            $.ajax({
+                type: "get",
+                data: {state: $('.graph-button').prop('checked').toString(), csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://127.0.0.1:8000/p/aggelos_data/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                    window.location.reload();
+                },
+                success: function (response) {
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    if ($('.graph-button').prop('checked')) {
+                        chart.addCategoryAxis("x", "kwdikos");
+                        chart.addMeasureAxis("y", "metric");
+                    }
+                    else {
+                        chart.addCategoryAxis("x", "karekla");
+                        chart.addMeasureAxis("y", "upsos");
+                    }
+                    chart.addSeries(null, dimple.plot.bar);
+                    chart.draw();
+                }
+            })
+        })
+    $('.graph-button2').on('change', function(){
 
         $.ajax({
             type: "get",
-            data: {state: $('.graph-button').prop('checked').toString(), csrfmiddlewaretoken:'{{ csrf_token }}'},
+            data: {state: $('.graph-button2').prop('checked').toString(), csrfmiddlewaretoken:'{{ csrf_token }}'},
             cache: 'false',
             url: 'http://127.0.0.1:8000/p/aggelos_data/',
             dataType: "json",
@@ -126,10 +243,11 @@
             },
             success: function(response) {
                 svg.selectAll('*').remove();
+                //window.location.reload();
                 var chart = new dimple.chart(svg, response);
-                if ($('.graph-button').prop('checked')) {
-                    chart.addCategoryAxis("x", "dimos");
-                    chart.addMeasureAxis("y", "kwdikos");
+                if ($('.graph-button2').prop('checked')) {
+                    chart.addCategoryAxis("x", "kwdikos");
+                    chart.addMeasureAxis("y", "metric");
                 }
                 else {
                     chart.addCategoryAxis("x", "karekla");

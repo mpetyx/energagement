@@ -1,5 +1,5 @@
 from django import forms
-from .models import StreetLighting
+from .models import StreetLighting1
 
 # Create your forms here.
 # class myForm(forms.Form):
@@ -40,4 +40,4 @@ class my_choose_time(forms.Form):
     choose_time = forms.ChoiceField(choices=[(x, x) for x in ('hour', 'day', 'week', 'month')])
 
 class my_EV(forms.Form):
-   EV = forms.ChoiceField(choices=[(x, x) for x in ([StreetLighting.objects.all()])])
+   EV = forms.ChoiceField(choices=[(x, x) for x in ([StreetLighting1.objects.all()])])

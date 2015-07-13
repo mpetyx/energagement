@@ -12,7 +12,7 @@
 
 {% block header %}
     <!--=== Begin Header Parallax ===-->
-<div class="header-parallax" style=" background-color: greenyellow; width: 100%" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -200px;">
+<div class="header-parallax" style="width: 100%; height: 200px; background-color: greenyellow; " data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -200px;">
 	<div class="container" style="margin-left:40%; margin-right: 60%">
 		<div class="row">
 			<!--=== Page Title ===-->
@@ -100,8 +100,8 @@
 
 {% block footer %}
 <!--=== Begin Footer ===-->
-<div class="footer" style="bottom: 30px;">
-    <div class="container" style="width:100%">
+<div class="footer" style="width: 100%; height: 350px; background-color: #272727">
+    <div class="container" style="width:100%; background-color: #272727">
         <div class="row" style="width:100%">
             <!--=== About ===-->
             <div class="col-sm-3" style="display: inline; width: 25%">
@@ -161,7 +161,7 @@
                 </div>
                 <div class="col-xs-4 recent-work-padding">
                     <a href="" class="thumbnail image-zoom-link">
-                      <<img src="{% static 'myapp/images/street_lighting_footer.jpg' %}" alt="..." class="thumbnail img-responsive"/>
+                      <img src="{% static 'myapp/images/street_lighting_footer.jpg' %}" alt="..." class="thumbnail img-responsive"/>
                     </a>
                 </div>
                 <div class="col-xs-4 recent-work-padding">
@@ -172,15 +172,16 @@
             </div>
         </div><!-- /row -->
         <!--=== Copyright ===-->
-        <div class="row" style="width: 100%">
+        <div class="row" style="width: 100%; height:10%">
             <hr class="dark-hr">
-            <div class="col-sm-11 col-xs-10" style="width: 100%">
-                <p class="copyright">© 2013 Raleway. All rights reserved. Theme by <b>Denis Samardjiev</b>.</p>
-            </div>
-            <div class="col-sm-1 col-xs-2 text-right" style="width: 98%">
-                <a href="#" class="scroll-top"><div class="footer-scrolltop-holder"> <img src="{% static 'myapp/images/arrow.png' %}"/></div></a>
-            </div>
-        </div><!-- /row -->
+        </div>
+        <div class="col-sm-11 col-xs-10" style="width: 100%">
+            <p class="copyright" style="margin-left: 1%">© 2013 Raleway. All rights reserved. Theme by <b>Denis Samardjiev</b>.</p>
+        </div>
+        <div class="col-sm-1 col-xs-2 text-right" style="width: 98%">
+            <a href="#" class="scroll-top"><div class="footer-scrolltop-holder"> <img src="{% static 'myapp/images/arrow.png' %}"/></div></a>
+        </div>
+        <!-- /row -->
     </div><!-- /container -->
 </div><!-- /footer -->
 <!--=== End Footer ===-->
