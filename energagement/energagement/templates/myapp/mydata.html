@@ -16,7 +16,7 @@
         <script src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script>
 </head>
 <body>
-    <!--<div class="page" style=" width: 100%; height: 100%; ">-->
+
         <p2 align="right" style="width: 80px; height: 30px; background-color:lightgray; margin-right: 2% position:relative;">
             <a href="/accounts/logout/"> <center>Logout</center> </a>
         </p2>
@@ -32,25 +32,10 @@
             <a>
                 <div style="width: 100%; height: 52.5%; background-color:lightgray; overflow-y: scroll">
                      <a>
-
-                         <!--<ul style="vertical-align: middle; -webkit-padding-start: 0px;">
-                             <input type="checkbox" class="graph-button">EV1</input>
-                             <br/>
-                             <p style="margin-left: 4%; color: #272727; margin-bottom: -2%; margin-top: 1%"> municipality: {{test.municipality}} </p>
-                             <p style="margin-left: 4%; color: #272727"> code: {{test.code}} </p>
-                             <input type="checkbox" class="graph-button2">EV2</input>
-                             <br/>
-                             <p style="margin-left: 4%; color: #272727; margin-bottom: -2%; margin-top: 1%"> municipality: {{test.municipality}} </p>
-                             <p style="margin-left: 4%; color: #272727"> code: {{test.code}} </p>
-                             <input type="checkbox" class="graph-button3">EV3</input>
-                             <br/>
-                             <p style="margin-left: 4%; color: #272727; margin-bottom: -2%; margin-top: 1%"> municipality: {{test.municipality}} </p>
-                             <p style="margin-left: 4%; color: #272727"> code: {{test.code}} </p>
-                         </ul>-->
                          {% for item in test1 %}
                                 <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
-                                <input type="checkbox" class="graph-button{{item.id}}">EV{{item.id}}</input>
-                                <br/>
+                                <p><input type="checkbox" class="graph-button" id="graph-button-{{item.id}}">EV{{item.id}}</input></p>
+
                                 <p style="margin-left: 4%; color: #272727; margin-bottom: -2%; margin-top: 1%"> municipality: {{item.municipality}} </p>
                                 <p style="margin-left: 4%; color: #272727"> code: {{item.code}} </p>
                                 </ul>
@@ -72,9 +57,9 @@
                 <div style="width: 100%; height: 47.5%; background-color:lightgray; overflow-y: scroll">
                      <a>
                         <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
-                             <input type="radio" name="indicator" value="kw" checked="checked">kw</input><br>
-                             <input type="radio" name="indicator" value="kwh">kwh</input><br>
-                             <input type="radio" name="indicator" value="kw_line">kw/line</input>
+                             <input class="radio-button" type="radio" name="indicator" value="kw" checked="checked">kw</input><br>
+                             <input class="radio-button" type="radio" name="indicator" value="kwh">kwh</input><br>
+                             <input class="radio-button" type="radio" name="indicator" value="kw_line">kw/line</input>
                         </ul>
                      </a>
                 </div>
@@ -134,17 +119,31 @@
 
 
     <script type="text/javascript">
-    $('.table').on('click', function() {
-        var svg = dimple.newSvg(".diagram_area", 1000, 600);
+    var svg = dimple.newSvg(".diagram_area", 1000, 600);
+    /* to remember the last type of diagram - initialized with bar */
+    var last1="bar";
+
+
+    $('.graph-button, .radio-button').on('click', function(){
+        /* list with the graph buttons that are checked */
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
         $.ajax({
                 type: "get",
-                data: {state: $('.graph-button1').prop('checked').toString(), csrfmiddlewaretoken: '{{ csrf_token }}'},
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), csrfmiddlewaretoken: '{{ csrf_token }}'},
                 cache: 'false',
-                url: 'http://127.0.0.1:8000/p/data_test/',
+                url: 'http://localhost:8000/p/data_test/',
                 dataType: "json",
                 error: function () {
                     alert('something went wrong');
-                    window.location.reload();
+                    //window.location.reload();
                 },
                 success: function (response) {
                     svg.selectAll('*').remove();
@@ -154,23 +153,151 @@
                         //ring.innerRadius = "50%";
                         //chart.addLegend(500, 60, 90, 300, "left");
 
-                    if ($('.graph-button1').prop('checked')) {
+                        if (last1=="bar"){
+                            var x=chart.addCategoryAxis("x", "timestamp");
+                            x.title="date";
+                            var y=chart.addMeasureAxis("y", "metric");
+                            y.title=document.querySelector('input[name="indicator"]:checked').value;
+                            chart.addSeries('dimos', dimple.plot.bar);
+                        }
+                        else if (last1=="line"){
+                            var x=chart.addCategoryAxis("x", "timestamp");
+                            x.title="date";
+                            var y=chart.addMeasureAxis("y", "metric");
+                            y.title=document.querySelector('input[name="indicator"]:checked').value;
+                            chart.addSeries('dimos', dimple.plot.line);
+                        }
+                        else{
+                            chart.setBounds(60, 60, 460, 360);
+                            var p=chart.addMeasureAxis("p", "metric");
+                            p.title=document.querySelector('input[name="indicator"]:checked').value;
+                            chart.addSeries('dimos', dimple.plot.pie);
+                        }
+                        chart.addLegend(410, 27, 510, 50, "right");
+                        chart.draw();
+                }
+            })
+    });
+
+    $('.line').on('click', function(){
+        /* list with the graph buttons that are checked */
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
+        $.ajax({
+                type: "get",
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://localhost:8000/p/data_test/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                    //window.location.reload();
+                },
+                success: function (response) {
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+
+                        //var ring = chart.addSeries("dimos", dimple.plot.pie);
+                        //ring.innerRadius = "50%";
+                        //chart.addLegend(500, 60, 90, 300, "left");
+                        var x=chart.addCategoryAxis("x", "timestamp");
+                        x.title="date";
+                        var y=chart.addMeasureAxis("y", "metric");
+                        y.title=document.querySelector('input[name="indicator"]:checked').value;
+                        chart.addSeries('dimos', dimple.plot.line);
+                        chart.addLegend(410, 27, 510, 50, "right");
+                        chart.draw();
+                        last1="line"
+                }
+            })
+    });
+
+    $('.bar').on('click', function(){
+        /* list with the graph buttons that are checked */
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
+        $.ajax({
+                type: "get",
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://localhost:8000/p/data_test/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                    //window.location.reload();
+                },
+                success: function (response) {
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+
+                        //var ring = chart.addSeries("dimos", dimple.plot.pie);
+                        //ring.innerRadius = "50%";
+                        //chart.addLegend(500, 60, 90, 300, "left");
+                        var x=chart.addCategoryAxis("x", "timestamp");
+                        x.title="date";
+                        var y=chart.addMeasureAxis("y", "metric");
+                        y.title=document.querySelector('input[name="indicator"]:checked').value;
+                        chart.addSeries('dimos', dimple.plot.bar);
+                        chart.addLegend(410, 27, 510, 50, "right");
+                        chart.draw();
+                        last1="bar"
+                }
+            })
+    });
+
+    $('.pie').on('click', function() {
+            /* list with the graph buttons that are checked */
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
+        $.ajax({
+                type: "get",
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://localhost:8000/p/data_test/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                    //window.location.reload();
+                },
+                success: function (response) {
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+
+                        //var ring = chart.addSeries("dimos", dimple.plot.pie);
+                        //ring.innerRadius = "50%";
+                        //chart.addLegend(500, 60, 90, 300, "left");
                         chart.setBounds(60, 60, 460, 360);
                         var p=chart.addMeasureAxis("p", "metric");
                         p.title=document.querySelector('input[name="indicator"]:checked').value;
-                        chart.addSeries("timestamp", dimple.plot.pie);
+                        chart.addSeries('dimos', dimple.plot.pie);
                         chart.addLegend(410, 27, 510, 50, "right");
                         chart.draw();
-                    }
-                    //chart.addSeries("kwdikos", dimple.plot.pie);
-                    else svg.selectAll('*').remove();
+                        last1="pie";
                 }
             })
-    })
-    //var svg2 = dimple.newSvg(".diagram_area", 800, 600);
-    $('.pie').on('click', function() {
-            var svg = dimple.newSvg(".diagram_area", 1000, 600);
-            $.ajax({
+    });
+     /*       $.ajax({
                 type: "get",
                 data: {state: $('.graph-button1').prop('checked').toString(), csrfmiddlewaretoken: '{{ csrf_token }}'},
                 cache: 'false',
@@ -227,7 +354,7 @@
 
     })
     $('.bar').on('click', function() {
-            var svg = dimple.newSvg(".diagram_area", 1000, 600);
+
             $.ajax({
                 type: "get",
                 data: {state1_2: (($('.graph-button1').prop('checked'))&&($('.graph-button2').prop('checked'))).toString(), csrfmiddlewaretoken: '{{ csrf_token }}'},
@@ -307,7 +434,7 @@
 
     })
     $('.line').on('click', function() {
-            var svg = dimple.newSvg(".diagram_area", 1000, 600);
+
             console.log(document.querySelector('input[name="indicator"]:checked').value);
             $.ajax({
                 type: "get",
@@ -387,7 +514,7 @@
                 }
             })*/
 
-            $.ajax({
+       /*     $.ajax({
                 type: "get",
                 data: {state2: $('.graph-button2').prop('checked').toString(), csrfmiddlewaretoken: '{{ csrf_token }}'},
                 cache: 'false',
@@ -412,7 +539,7 @@
                     else svg.selectAll('*').remove();
                 }
             })
-    })
+    })*/
 
   </script>
 </body>
