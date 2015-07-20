@@ -186,35 +186,38 @@ def data_test(request):
     status2 = request.GET['state2']
     print (status2)
     # seperate graph-button-ids
-    button_list = status.split("_")
-    list_of_ids = []
-    for b in button_list:
-        # hold only the ids
-        list_of_ids.append(int(b.split('graph-button-')[1]))
-    print ("list of ids=", list_of_ids)
-    json_list=[]
-    if status2=="kw":
-        for id in list_of_ids:
-            data1=StreetLighting1.objects.get(id=id)
-            kw = data1.kw.all()
-            for item2 in kw:
-                json_item = {'dimos': data1.municipality,
-                             'kwdikos': data1.code,
-                             'metric': item2.metric,
-                             'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
-                print(item2.metric)
-                json_list.append(json_item)
-    elif status2=="kwh":
-        for id in list_of_ids:
-            data1=StreetLighting1.objects.get(id=id)
-            kwh = data1.kwh.all()
-            for item2 in kwh:
-                json_item = {'dimos': data1.municipality,
-                             'kwdikos': data1.code,
-                             'metric': item2.metric,
-                             'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
-                print(item2.metric)
-                json_list.append(json_item)
+    if status=="":
+        json_list=[]
+    else:
+        button_list = status.split("_")
+        list_of_ids = []
+        for b in button_list:
+            # hold only the ids
+            list_of_ids.append(int(b.split('graph-button-')[1]))
+        print ("list of ids=", list_of_ids)
+        json_list=[]
+        if status2=="kw":
+            for id in list_of_ids:
+                data1=StreetLighting1.objects.get(id=id)
+                kw = data1.kw.all()
+                for item2 in kw:
+                    json_item = {'dimos': data1.municipality,
+                                 'kwdikos': data1.code,
+                                 'metric': item2.metric,
+                                 'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+                    print(item2.metric)
+                    json_list.append(json_item)
+        elif status2=="kwh":
+            for id in list_of_ids:
+                data1=StreetLighting1.objects.get(id=id)
+                kwh = data1.kwh.all()
+                for item2 in kwh:
+                    json_item = {'dimos': data1.municipality,
+                                 'kwdikos': data1.code,
+                                 'metric': item2.metric,
+                                 'timestamp': item2.timestamp.strftime('%d-%b-%Y %H:%M:%S')}
+                    print(item2.metric)
+                    json_list.append(json_item)
 
     return HttpResponse(json.dumps(json_list), content_type='application/json')
 
