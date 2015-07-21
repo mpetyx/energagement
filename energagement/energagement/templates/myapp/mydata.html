@@ -25,9 +25,9 @@
             <a href="/accounts/logout/"> <center>Logout</center> </a>
         </p2>
         <br/><br/>
-        <h1 style="margin-left:40%; margin-top:1%"> My Electronic Vehicles </h1>
+
         <br/>
-        <div style="width: 30%; height: 500px; margin-left: 2%; margin-right:auto; margin-bottom: 10%">
+        <div style="width: 30%; height: 500px;  margin-right:auto; margin-bottom: 10%">
    			<a>
                 <div style="width: 100%; background-color:#ADFF2F">
                     <a style="color: green; font-size: 23px;"> <center>EV</center> </a>
@@ -75,18 +75,18 @@
                 </div>
 
 <!--/////////////////////////////////////// diagrams //////////////////////////////////////////////////-->
-                <div class="row1" style="width:100%; margin-top: 1%">
-                           <table id="myTable">
+                <div class="row1" style="width:100%; margin-top: 1%"></div>
+                <table id="myTable">
                     <thead>
-                        <th style="text-decoration: none" data-dynatable-column="dimos">municipality</th>
+                        <th data-dynatable-column="dimos">municipality</th>
                         <th data-dynatable-column="kwdikos">code</th>
-                        <th data-dynatable-column="metric">metric</th>
+                         <th data-dynatable-column="metric" >metric <a class="-webkit-any-link" href="#" id="metric"> </a></th>
                         <th data-dynatable-column="timestamp">timestamp</th>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
-                </div>
+
 
                 <div class="row1" style="width:100%; margin-top: 1%">
                 <!--=== Choose diagrams ===-->
@@ -136,6 +136,9 @@
 
    	    </div>
 
+    <script>
+        document.getElementById("metric").innerHTML = "("+ $('input[name="indicator"]:checked').val()+")";
+    </script>
 
     <script type="text/javascript">
     var svg = dimple.newSvg(".diagram_area", 1000, 600);
@@ -165,6 +168,16 @@
                     //window.location.reload();
                 },
                 success: function (response) {
+                    //console.log(response);
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
+
                     svg.selectAll('*').remove();
                     var chart = new dimple.chart(svg, response);
 
@@ -196,12 +209,7 @@
                         }
                         chart.addLegend(410, 27, 510, 50, "right");
                         chart.draw();
-                    $('#myTable').dynatable({
-                    dataset: {
 
-                        records: response
-                    }
-                    });
                 }
             })
     });
@@ -228,6 +236,15 @@
                     //window.location.reload();
                 },
                 success: function (response) {
+                    //console.log(response);
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
                     svg.selectAll('*').remove();
                     var chart = new dimple.chart(svg, response);
 
@@ -245,12 +262,7 @@
                         chart.draw();
                         last1="line"
 
-                    $('#myTable').dynatable({
-                    dataset: {
 
-                        records: response
-                    }
-                    });
                 }
             })
     });
@@ -277,6 +289,15 @@
                     //window.location.reload();
                 },
                 success: function (response) {
+                    //console.log(response);
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
                     svg.selectAll('*').remove();
                     var chart = new dimple.chart(svg, response);
 
@@ -292,12 +313,7 @@
                         chart.draw();
                         last1="bar"
 
-                    $('#myTable').dynatable({
-                    dataset: {
 
-                        records: response
-                    }
-                    });
                 }
 
             })
@@ -325,6 +341,15 @@
                     //window.location.reload();
                 },
                 success: function (response) {
+                    //console.log(response);
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
                     svg.selectAll('*').remove();
                     var chart = new dimple.chart(svg, response);
 
@@ -339,12 +364,7 @@
                         chart.draw();
                         last1="pie";
 
-                    $('#myTable').dynatable({
-                    dataset: {
 
-                        records: response
-                    }
-                    });
                 }
             })
     });
