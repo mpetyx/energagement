@@ -1,5 +1,5 @@
 {% extends "myapp/base3.html" %}
-<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 {% load staticfiles %}
 
 {% block content %}
@@ -22,7 +22,19 @@
 <body>
 
         <p2 align="right" style="width: 80px; height: 30px; background-color:lightgray; margin-right: 2% position:relative;">
-            <a href="/accounts/logout/"> <center>Logout</center> </a>
+            <div class="dropdown">
+                <a class="account">My Account</a>
+
+                <div class="submenu">
+                    <ul class="root">
+                        <li ><a href="#" >Dashboard</a></li>
+                        <li ><a href="#" >Profile</a></li>
+                        <li ><a href="#">Settings</a></li>
+                        <li ><a href="/accounts/logout">Logout</a></li>
+                    </ul>
+                </div>
+
+            </div>
         </p2>
         <br/><br/>
 
@@ -70,25 +82,26 @@
             </a>
    	    </div>
         <div style="width: 64%; height: 950px; margin-left: 2%; margin-right:auto; margin-bottom: 2%">
-                <div style="width: 100%; background-color:#ADFF2F">
+                <!--<div style="width: 100%; background-color:#ADFF2F">
                     <a style="color: green; font-size: 23px;"> <center>Diagrams</center> </a>
-                </div>
+                </div>-->
 
 <!--/////////////////////////////////////// diagrams //////////////////////////////////////////////////-->
-                <div class="row1" style="width:100%; margin-top: 1%"></div>
+                <div class="row1" style="width:105%; margin-top: 1%">
                 <table id="myTable">
                     <thead>
                         <th data-dynatable-column="dimos">municipality</th>
                         <th data-dynatable-column="kwdikos">code</th>
-                         <th data-dynatable-column="metric" >metric <a class="-webkit-any-link" href="#" id="metric"> </a></th>
+                        <th data-dynatable-column="metric" >metric <a class="-webkit-any-link" href="#" id="metric"> </a></th>
                         <th data-dynatable-column="timestamp">timestamp</th>
                     </thead>
                     <tbody>
                     </tbody>
                 </table>
+                </div>
 
 
-                <div class="row1" style="width:100%; margin-top: 1%">
+                <div class="row1" style="width:105%; margin-top: 1%">
                 <!--=== Choose diagrams ===-->
                     <div style="display: inline; width: 100%">
                         <div style="width: 4%">
@@ -114,40 +127,59 @@
                     </div>
                  </div>
 
-                <div class='diagram_area' style="width: 100%; height: 70%; margin-top: 1%; background-color:lightgray; overflow: scroll">
-
-                    <!--<table style="width:100%;">
-
-                        {% for item in test1 %}
-
-                                <tr>
-                                <td> {{item.municipality }}</td>
-                                    {% for item2 in item.kw.all %}
-                                        <td> {{item2.metric}}</td>
-                                        <td> {{item2.timestamp}}</td>
-                                    {% endfor %}
-                                </tr>
-
-                        {% endfor %}
-
-
-                        </table>-->
+                <div class='diagram_area' style="width: 105%; height: 70%; margin-top: 1%; background-color:lightgray; overflow: scroll">
                 </div>
 
    	    </div>
 
-    <script>
-        document.getElementById("metric").innerHTML = "("+ $('input[name="indicator"]:checked').val()+")";
+    <script type="text/javascript" >
+
+
+    $(".account").click(function(){
+        var X=$(this).attr('id');
+        if(X==1)
+        {
+            $(".submenu").hide();
+            $(this).attr('id', '0');
+        }
+        else
+        {
+            $(".submenu").show();
+            $(this).attr('id', '1');
+        }
+
+    });
+
+    //Mouse click on sub menu
+    $(".submenu").mouseup(function(){
+        return false
+    });
+
+    //Mouse click on my account link
+    $(".account").mouseup(function(){
+        return false
+    });
+
+
+    //Document Click
+    $(document).mouseup(function(){
+        $(".submenu").hide();
+        $(".account").attr('id', '');
+    });
     </script>
 
+
+
     <script type="text/javascript">
-    var svg = dimple.newSvg(".diagram_area", 1000, 600);
+    var svg = dimple.newSvg(".diagram_area", 900, 600);
     /* to remember the last type of diagram - initialized with bar */
     var last1="bar";
 
 
     $('.graph-button, .radio-button').on('click', function(){
         /* list with the graph buttons that are checked */
+        console.log($('input[name="indicator"]:checked').val());
+        document.getElementById("metric").innerHTML = "("+ $('input[name="indicator"]:checked').val()+")";
         var list = $('.graph-button:checkbox:checked');
         var x='';
         for(i=0;i<list.length;i++) {
@@ -207,7 +239,7 @@
                             p.title=document.querySelector('input[name="indicator"]:checked').value;
                             chart.addSeries('dimos', dimple.plot.pie);
                         }
-                        chart.addLegend(410, 27, 510, 50, "right");
+                        chart.addLegend(350, 27, 510, 50, "right");
                         chart.draw();
 
                 }
@@ -371,6 +403,8 @@
 
 
   </script>
+
+
 </body>
 
 </html>
