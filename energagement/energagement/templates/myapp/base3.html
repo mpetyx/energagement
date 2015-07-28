@@ -13,7 +13,35 @@
 {% block header %}
     <!--=== Begin Header Parallax ===-->
 <div class="header-parallax" style="width: 100%; height: 62px; background-color: greenyellow; " data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -200px;">
+
         <a style="color: black; font-size: 22px; margin-bottom: 30%; margin-left: 45%">My Electric Vehicles</a>
+
+        <div align="left" style="width: 80px; height: 30px; background-color:lightgray; margin-right: 2%; margin-top: 0%" class="dropdown">
+            <a class="home"><center>Home</center></a>
+            <div class="submenu">
+                <ul class="root">
+                    <li ><a href="/p/home" >Home</a></li>
+                    <li ><a href="/p/buildings" >My Buildings</a></li>
+                    <li ><a href="/p/street_lighting">My Street Lightings</a></li>
+                    <li ><a href="/p/EV">My Electric Vehicles</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <p2 >
+        <div align="right" style="width: 80px; height: 30px; background-color:lightgray; margin-right: 2%; margin-top: -5%" class="dropdown">
+            <a class="account">My Account</a>
+            <div class="submenu">
+                <ul class="root">
+                    <li ><a href="#" >Home</a></li>
+                    <li ><a href="#" >Profile</a></li>
+                    <li ><a href="#">Settings</a></li>
+                    <li ><a href="/accounts/logout">Logout</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </p2>
 </div><!-- /page header -->
 <!--=== End Header Parallax ===-->
 {% endblock %}
@@ -60,7 +88,7 @@
     {% block messages %}
         {% if messages %}
         <ul class="messagelist">{% for message in messages %}
-          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message|capfirst }}</li>
         {% endfor %}</ul>
         {% endif %}
     {% endblock messages %}

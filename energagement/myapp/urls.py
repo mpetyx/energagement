@@ -15,6 +15,4 @@ urlpatterns = patterns('',
     #url(r'^test2/', views.test2, name='test2'),
     url(r'^mydata/', views.mydata, name='mydata'),
     url(r'^data_test/', views.data_test, name='data_test'),
-    url(r'^data_test2/', views.data_test2, name='data_test2'),
-    url(r'^data_test1_2/', views.data_test1_2, name='data_test1_2'),
 )
