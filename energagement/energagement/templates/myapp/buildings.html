@@ -1,10 +1,513 @@
-<!DOCTYPE html>
-<html>
+{% extends "myapp/base_buildings.html" %}
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+{% load staticfiles %}
+
+{% block content %}
+
 <head lang="en">
     <meta charset="UTF-8">
     <title>Buildings</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/jquery.dynatable.css' %}" />
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script>
+    <script src="{% static 'myapp/jquery.dynatable.js' %}" type="text/javascript"></script>
 </head>
+
 <body>
-    Buildings!
+
+    <script src="{% static 'myapp/jquery.dynatable.js' %}" type="text/javascript"></script>
+
+    <br/>
+    <div style="width: 30%; height: 500px;  margin-right:auto; margin-bottom: 10%; ">
+        <div style="width: 100%; background-color:#ADFF2F;">
+            <h3 style="color: green; font-size: 23px;"> <center>Buildings</center> </h3>
+        </div>
+        <div style="width: 100%; height: 52.5%; overflow-y: scroll; background: -webkit-linear-gradient(top, #6A942B, #DFEAE6);">
+            <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
+                <div class="a">
+                    {% for item in all_buildings %}
+                        <input type="checkbox" class="graph-button" id="graph-button-{{item.id}}"><button class="navbar-btn" type="button" data-toggle="collapse" data-parent="cointainer" href="#info{{item.id}}">Building{{item.id}}</button></input>
+                        <br/>
+                        <div class="collapse" id="info{{item.id}}">
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>category:</b> <span style="color: #155FB0">{{item.category}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>code:</b> <span style="color: #155FB0">{{item.building_code}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>municipality:</b> <span style="color: #155FB0">{{item.municipality}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>street:</b> <span style="color: #155FB0">{{item.street}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>postcode:</b> <span style="color: #155FB0">{{item.postcode}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>latitude:</b> <span style="color: #155FB0">{{item.latitude}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>longitude:</b> <span style="color: #155FB0">{{item.longitude}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>surface [m2]:</b> <span style="color: #155FB0">{{item.surface}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>floors:</b> <span style="color: #155FB0">{{item.floors}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>volume [m3]:</b> <span style="color: #155FB0">{{item.volume}}</span> </p3><br/>
+                        </div>
+                        <br/><br/>
+                    {% endfor %}
+                </div>
+            </ul>
+        </div>
+
+        <div style="width: 100%; background-color:#ADFF2F">
+            <h3 style="color: green; font-size: 23px;"> <center>Energy Indicators</center> </h3>
+        </div>
+
+        <div style="width: 100%; height: 47.5%; background: -webkit-linear-gradient(top, #3F5819, #DFEAE6); overflow-y: scroll">
+            <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
+                <input class="radio-button" type="radio" name="indicator" value="kwh" checked="checked">kwh</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="kwh_m2">kwh_m2</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="lt">lt</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="lt_m2">lt_m2</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="kw">kw</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="co2_tn">co2_tn</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="co2_tn_m2">co2_tn_m2</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="co2_lt">co2_lt</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="co2_lt_m2">co2_lt_m2</input><br>
+            </ul>
+        </div>
+   	</div>
+
+    <!--------------------------------------------------- diagrams --------------------------------------------------------->
+
+    <div style="width: 68%; height: 950px; margin-left: 2%; margin-right:auto; margin-bottom: 2%">
+        <button type="button" class="btn btn-default" id="excelbtn" aria-label="Right Align" style="margin-left: 96%">
+            <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+        </button>
+
+        <div class="row1"  style="width:100%; margin-top: 1%">
+            <div id="dtltbl" style="width:100%">
+                <table id="myTable" data-show-export="true">
+                    <thead>
+                        <th data-dynatable-column="municipality"> municipality </th>
+                        <th data-dynatable-column="code"> code </th>
+                        <th data-dynatable-column="timestamp"> timestamp <a class="-webkit-any-link" href="#" id="timestamp"> </a> </th>
+                        <th data-dynatable-column="metric" > metric <a class="-webkit-any-link" href="#" id="metric"> </a></th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row1" style="width:100%; margin-top: 1%">
+        <!--=== Choose diagrams ===-->
+            <div style="display: inline; width: 100%">
+                <div style="width: 4%">
+                    <input type="image" class="line" name="diagram" value="line"  src="{% static 'myapp/images/line_chart.png' %}" alt="Submit Form" />
+                </div>
+                <div style="width: 4%">
+                    <input type="image" class="bar" name="diagram" value="bar"  src="{% static 'myapp/images/bar_chart.jpg' %}" alt="Submit Form" />
+                </div>
+                <div style="width: 4%">
+                    <input type="image" class="pie" name="diagram" value="pie"  src="{% static 'myapp/images/pie_chart2.png' %}" alt="Submit Form" />
+                </div>
+                <h4 style="float: right; color: black"> Time scope per:
+                    <select class="select_time" name="select_time">
+                        <option value="hour">hour</option>
+                        <option value="day">day</option>
+                        <option value="week">week</option>
+                        <option value="month">month</option>
+                    </select>
+                    from:
+                    <input class="select_date" id="from_date" type="date" name="from_date">
+                    to:
+                    <input class="select_date" id="to_date" type="date" name="to_date">
+                </h4>
+            </div>
+        </div>
+        <div class='diagram_area' style="width: 100%; height: 70%; margin-top: 1%; background: -webkit-linear-gradient(top, #3F5819, #DFEAE6); overflow: scroll"></div>
+    </div>
+
+
+
+<!---------------------------------------------- Scripts ----------------------------------------------------------------------->
+
+
+<script type="text/javascript">
+
+
+    $(document).ready( function() {
+        var today = new Date();
+        var first_day_of_month = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd<10) {
+            dd='0'+dd
+        }
+
+        if(mm<10) {
+            mm='0'+mm
+        }
+
+        today = yyyy+'-'+mm+'-'+dd;
+        first_day_of_month = yyyy+'-'+mm+'-'+'01';
+        document.querySelector('#from_date').value = first_day_of_month;
+        document.querySelector('#to_date').value = today;
+    });
+
+    $("#excelbtn").click(function () {
+        var str="";
+        $('thead').each(function() {
+            $(this).find('th').each(function() {
+                str=str+$(this).text()+"\t";
+            });
+            str=str+"\n";
+        });
+        $('tr').each(function() {
+            $(this).find('td').each(function() {
+                str=str+$(this).html()+"\t";
+            });
+            str=str+"\n";
+        });
+        alert(str);
+        window.open('data:application/vnd.ms-excel,' + encodeURIComponent(str));
+    });
+
+    var svg = dimple.newSvg(".diagram_area", 1000, 600);
+    /* to remember the last type of diagram - initialized with bar */
+    var last1="bar";
+
+    $('.select_time, .select_date').on('change', function(){
+        /* list with the graph buttons that are checked */
+        console.log($('input[name="indicator"]:checked').val());
+        document.getElementById("metric").innerHTML = "("+ $('input[name="indicator"]:checked').val()+")";
+        document.getElementById("timestamp").innerHTML = "("+ $('select[name="select_time"] option:selected').text()+")";
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
+        var time= $('select[name="select_time"] option:selected').text();
+        var from_date= $('input[name="from_date"]').val();
+        var to_date= $('input[name="to_date"]').val();
+        console.log(from_date);
+        $.ajax({
+                type: "get",
+                /*we send state=list_of_ids selected, state2=the selected indiacator, state3=time_scope, state4=date_from, state5=date_to */
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://localhost:8000/p/data_buildings/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                },
+                success: function (response) {
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    chart.defaultColors = [
+                            new dimple.color('#99FF00'),
+                            new dimple.color('#525229'),
+                            new dimple.color('#3D997A'),
+                            new dimple.color('#BBBBBB'),
+                            new dimple.color('#EEEEEE')
+                    ];
+                    if (last1=="bar"){
+                        var x=chart.addCategoryAxis("x", "timestamp");
+                        x.title=$('select[name="select_time"] option:selected').text();
+                        x.color = "green";
+                        x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+                        x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                        x.addOrderRule="date";
+                        var y=chart.addMeasureAxis("y", "metric");
+                        y.title=document.querySelector('input[name="indicator"]:checked').value;
+                        chart.addSeries('code', dimple.plot.bar);
+                    }
+                    else if (last1=="line"){
+                        var x=chart.addCategoryAxis("x", "timestamp");
+                        x.title=$('select[name="select_time"] option:selected').text();
+                        x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+                        x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                        var y=chart.addMeasureAxis("y", "metric");
+                        y.title=document.querySelector('input[name="indicator"]:checked').value;
+                        var s = chart.addSeries("code", dimple.plot.line);
+                        s.interpolation = "cardinal";
+                    }
+                    else{
+                        chart.setBounds(60, 60, 460, 360);
+                        var p=chart.addMeasureAxis("p", "metric");
+                        p.title=document.querySelector('input[name="indicator"]:checked').value;
+                        chart.addSeries('code', dimple.plot.pie);
+                    }
+                    chart.addLegend(350, 27, 510, 50, "right");
+                    chart.draw();
+                }
+        })
+    });
+
+    $('.graph-button, .radio-button').on('click', function(){
+        /* list with the graph buttons that are checked */
+        console.log($('input[name="indicator"]:checked').val());
+        document.getElementById("metric").innerHTML = "("+ $('input[name="indicator"]:checked').val()+")";
+        document.getElementById("timestamp").innerHTML = "("+ $('select[name="select_time"] option:selected').text()+")";
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
+        var time= $('select[name="select_time"] option:selected').text();
+        var from_date= $('input[name="from_date"]').val();
+        var to_date= $('input[name="to_date"]').val();
+        console.log(from_date);
+        $.ajax({
+                type: "get",
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://localhost:8000/p/data_buildings/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                },
+                success: function (response) {
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    chart.defaultColors = [
+                            new dimple.color('#99FF00'),
+                            new dimple.color('#525229'),
+                            new dimple.color('#3D997A'),
+                            new dimple.color('#BBBBBB'),
+                            new dimple.color('#EEEEEE')
+                    ];
+                    if (last1=="bar"){
+                        var x=chart.addCategoryAxis("x", "timestamp");
+                        x.title=$('select[name="select_time"] option:selected').text();
+                        x.color = "green";
+                        x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+                        x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                        var y=chart.addMeasureAxis("y", "metric");
+                        y.title=document.querySelector('input[name="indicator"]:checked').value;
+                        chart.addSeries('code', dimple.plot.bar);
+                    }
+                    else if (last1=="line"){
+                        var x=chart.addCategoryAxis("x", "timestamp");
+                        x.title=$('select[name="select_time"] option:selected').text();
+                        x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+                        x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                        var y=chart.addMeasureAxis("y", "metric");
+                        y.title=document.querySelector('input[name="indicator"]:checked').value;
+                        var s = chart.addSeries("code", dimple.plot.line);
+                        s.interpolation = "cardinal";
+                    }
+                    else{
+                        chart.setBounds(60, 60, 460, 360);
+                        var p=chart.addMeasureAxis("p", "metric");
+                        p.title=document.querySelector('input[name="indicator"]:checked').value;
+                        chart.addSeries('code', dimple.plot.pie);
+                    }
+                    chart.addLegend(350, 27, 510, 50, "right");
+                    chart.draw();
+                }
+        })
+    });
+
+    $('.line').on('click', function(){
+        /* list with the graph buttons that are checked */
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
+        var time= $('select[name="select_time"] option:selected').text();
+        var from_date= $('input[name="from_date"]').val();
+        var to_date= $('input[name="to_date"]').val();
+        console.log(time);
+        $.ajax({
+                type: "get",
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://localhost:8000/p/data_buildings/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                },
+                success: function (response) {
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    chart.defaultColors = [
+                        new dimple.color('#99FF00'),
+                        new dimple.color('#525229'),
+                        new dimple.color('#3D997A'),
+                        new dimple.color('#BBBBBB'),
+                        new dimple.color('#EEEEEE')
+                    ];
+                    var x=chart.addCategoryAxis("x", "timestamp");
+                        x.title=$('select[name="select_time"] option:selected').text();
+                        x.title=$('select[name="select_time"] option:selected').text();
+                        x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+                        x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                        var y=chart.addMeasureAxis("y", "metric");
+                        y.title=document.querySelector('input[name="indicator"]:checked').value;
+                        var s = chart.addSeries("code", dimple.plot.line);
+                        s.interpolation = "cardinal";
+                        chart.addLegend(410, 27, 510, 50, "right");
+                        chart.draw();
+                        last1="line";
+                }
+        })
+    });
+
+    $('.bar').on('click', function(){
+        /* list with the graph buttons that are checked */
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
+        var time= $('select[name="select_time"] option:selected').text();
+        var from_date= $('input[name="from_date"]').val();
+        var to_date= $('input[name="to_date"]').val();
+        console.log(time);
+        $.ajax({
+                type: "get",
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://localhost:8000/p/data_buildings/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                },
+                success: function (response) {
+                    //console.log(response);
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    chart.amExport = {};
+                    chart.defaultColors = [
+                        new dimple.color('#99FF00'),
+                        new dimple.color('#525229'),
+                        new dimple.color('#3D997A'),
+                        new dimple.color('#BBBBBB'),
+                        new dimple.color('#EEEEEE')
+                    ];
+                    var x=chart.addCategoryAxis("x", "timestamp");
+                    x.title=$('select[name="select_time"] option:selected').text();
+                    x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+                    x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                    x.title=$('select[name="select_time"] option:selected').text();
+                    var y=chart.addMeasureAxis("y", "metric");
+                    y.title=document.querySelector('input[name="indicator"]:checked').value;
+                    chart.addSeries('code', dimple.plot.bar);
+                    chart.addLegend(410, 27, 510, 50, "right");
+                    chart.draw();
+                    last1="bar";
+                }
+        })
+    });
+
+    $('.pie').on('click', function() {
+        /* list with the graph buttons that are checked */
+        var list = $('.graph-button:checkbox:checked');
+        var x='';
+        for(i=0;i<list.length;i++) {
+            /* make a string with the items seperated with _ */
+            x += list[i].id.toString() + '_'
+        }
+        /* erase the last _ */
+        x = x.substring(0, x.length - 1);
+        console.log(x);
+        var time= $('select[name="select_time"] option:selected').text();
+        var from_date= $('input[name="from_date"]').val();
+        var to_date= $('input[name="to_date"]').val();
+        console.log(time);
+        $.ajax({
+                type: "get",
+                data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: 'false',
+                url: 'http://localhost:8000/p/data_buildings/',
+                dataType: "json",
+                error: function () {
+                    alert('something went wrong');
+                    //window.location.reload();
+                },
+                success: function (response) {
+                    //console.log(response);
+                    var dynatable=$('#myTable').dynatable({
+                    dataset: {
+
+                        records: response
+                    }
+                    }).data('dynatable');
+                    dynatable.settings.dataset.originalRecords = response;
+                    dynatable.process();
+                    svg.selectAll('*').remove();
+                    var chart = new dimple.chart(svg, response);
+                    chart.amExport = {};
+                    chart.defaultColors = [
+                        new dimple.color('#99FF00'),
+                        new dimple.color('#525229'),
+                        new dimple.color('#3D997A'),
+                        new dimple.color('#BBBBBB'),
+                        new dimple.color('#EEEEEE')
+                    ];
+                    chart.setBounds(60, 60, 460, 360);
+                    var p=chart.addMeasureAxis("p", "metric");
+                    p.title=document.querySelector('input[name="indicator"]:checked').value;
+                    chart.addSeries('code', dimple.plot.pie);
+                    chart.addLegend(410, 27, 510, 50, "right");
+                    chart.draw();
+                    last1="pie";
+                }
+        })
+    });
+
+
+</script>
+
 </body>
+
+{% endblock %}
+
 </html>

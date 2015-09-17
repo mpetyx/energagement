@@ -11,9 +11,11 @@
     <title>Sign In</title>
 </head>
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<div style="margin-left: 37%">
+<br/><br/><br/><br/>
 
 <h1>{% trans "Sign In" %}</h1>
+<br/>
 
 {% if socialaccount.providers %}
 <p>{% blocktrans with site.name as site_name %}Please sign in with one
@@ -47,6 +49,6 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
   <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
 </form>
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
+<br/><br/><br/><br/>
+</div>
 {% endblock %}

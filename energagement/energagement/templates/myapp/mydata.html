@@ -12,23 +12,25 @@
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/jquery.dynatable.css' %}" />
 
     <!--Load the AJAX API-->
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script src="http://d3js.org/d3.v3.min.js"></script>
-        <script src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-      <!--  <script type="text/javascript" src="{% static 'myapp/jquery.dynatable.js"></script>-->
-        <script src="{% static 'myapp/jquery.dynatable.js' %}" type="text/javascript"></script>
-
-
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!--  <script type="text/javascript" src="{% static 'myapp/jquery.dynatable.js"></script>-->
+    <script src="{% static 'myapp/jquery.dynatable.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="xepOnline.jqPlugin.js"></script>
+    <script type="text/javascript" src="extensions/export/bootstrap-table-export.js"></script>
+    <script type="text/javascript" src="jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="js/jquery.table2excel.js"></script>
 
 </head>
 <body>
 
 
     <br/><br/>
-
     <br/>
     <div style="width: 30%; height: 500px;  margin-right:auto; margin-bottom: 10%">
    	    <a>
@@ -40,14 +42,13 @@
             <div style="width: 100%; height: 52.5%; background-color:lightgray; overflow-y: scroll">
                         <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
                         {% for item in test1 %}
-                             <input type="checkbox" class="graph-button" id="graph-button-{{item.id}}"><a class="header"/>EV{{item.id}}</a></input>
+                             <input type="checkbox" class="graph-button" id="graph-button-{{item.id}}"><a data-toggle="collapse" href="#collapse{{item.id}}">EV{{item.id}}</a></input>
                              </br>
-                             <div class="content">
-                                 <a style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> municipality: {{item.municipality}} </a>
+                             <div id="collapse{{item.id}}" class="collapse in">
+                                 <a class="panel-body" style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> municipality: {{item.municipality}} </a>
                                 <!-- <a style="margin-left: 4%; color: #272727"> code: {{item.code}} </a>-->
                              </div>
                              <br/><br/>
-
                         {% endfor %}
                         </ul>
             </div>
@@ -172,70 +173,6 @@
 
     });
 
-
-    $(".account").click(function(){
-        var X=$(this).attr('id');
-        if(X==1)
-        {
-            $(".submenu").hide();
-            $(this).attr('id', '0');
-        }
-        else
-        {
-            $(".submenu").show();
-            $(this).attr('id', '1');
-        }
-
-    });
-
-    //Mouse click on sub menu
-    $(".submenu").mouseup(function(){
-        return false
-    });
-
-    //Mouse click on my account link
-    $(".account").mouseup(function(){
-        return false
-    });
-
-
-
-    $(".home").click(function(){
-        var X=$(this).attr('id');
-        if(X==1)
-        {
-            $(".submenu").hide();
-            $(this).attr('id', '0');
-        }
-        else
-        {
-            $(".submenu").show();
-            $(this).attr('id', '1');
-        }
-
-    });
-
-    //Mouse click on sub menu
-    $(".home").mouseup(function(){
-        return false
-    });
-
-    //Mouse click on home link
-    $(".home").mouseup(function(){
-        return false
-    });
-
-
-    //Document Click
-    $(document).mouseup(function(){
-        $(".submenu").hide();
-        $(".account").attr('id', '');
-    });
-</script>
-
-
-
-<script type="text/javascript">
     var svg = dimple.newSvg(".diagram_area", 900, 600);
     /* to remember the last type of diagram - initialized with bar */
     var last1="bar";
@@ -308,7 +245,7 @@
                             var x=chart.addCategoryAxis("x", "timestamp");
                             x.title=$('select[name="select_time"] option:selected').text();
                             x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
-                                                        x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                            x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
 
                             var y=chart.addMeasureAxis("y", "metric");
                             y.title=document.querySelector('input[name="indicator"]:checked').value;
@@ -387,7 +324,7 @@
                             x.title=$('select[name="select_time"] option:selected').text();
                             x.color = "green";
                             x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
-                                                        x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                            x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
 
                             var y=chart.addMeasureAxis("y", "metric");
                             y.title=document.querySelector('input[name="indicator"]:checked').value;
@@ -397,7 +334,7 @@
                             var x=chart.addCategoryAxis("x", "timestamp");
                             x.title=$('select[name="select_time"] option:selected').text();
                             x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
-                                                        x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
+                            x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
 
                             var y=chart.addMeasureAxis("y", "metric");
                             y.title=document.querySelector('input[name="indicator"]:checked').value;
@@ -469,6 +406,8 @@
                         //chart.addLegend(500, 60, 90, 300, "left");
                         var x=chart.addCategoryAxis("x", "timestamp");
                         x.title=$('select[name="select_time"] option:selected').text();
+                        x.title=$('select[name="select_time"] option:selected').text();
+                        x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
                         x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
                         var y=chart.addMeasureAxis("y", "metric");
                         y.title=document.querySelector('input[name="indicator"]:checked').value;
@@ -533,6 +472,8 @@
                         //ring.innerRadius = "50%";
                         //chart.addLegend(500, 60, 90, 300, "left");
                         var x=chart.addCategoryAxis("x", "timestamp");
+                        x.title=$('select[name="select_time"] option:selected').text();
+                        x.addOrderRule(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
                         x.addOrderRule(["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]);
                         x.title=$('select[name="select_time"] option:selected').text();
                         var y=chart.addMeasureAxis("y", "metric");
@@ -608,6 +549,12 @@
                 }
             })
     });
+
+$(document).on('click','.collapse collapse',function(e) {
+    if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+        $(this).collapse('hide');
+    }
+});
 
 </script>
 

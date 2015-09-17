@@ -3,23 +3,24 @@
 <head>
 <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 </head>
 {% load i18n %}
 
-<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" style="background: -webkit-linear-gradient(top, rgb(196, 228, 198), rgb(122, 189, 18));">
 
 {% block header %}
     <!--=== Begin Header Parallax ===-->
 <div class="header-parallax" style="width: 100%; height: 200px; background-color: greenyellow; " data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -200px;">
-	<div class="container" style="margin-left:40%; margin-right: 60%">
-		<div class="row">
+	<div class="container" style="margin-left:34%;">
+		<div class="row" style="width: 100%">
 			<!--=== Page Title ===-->
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<h1 style="font-size: 40px;"><b>Energagement</b></h1>
-                <p style="font-size: 22px;"> &nbsp; &nbsp; &nbsp; The Energy Manager</p>
-			</div>
+				<h1 style="font-size: 40px; width: 40%"><center><b>Energagement Tool</b></center></h1>
+                <h1 style="font-size: 22px; width: 40%"><center>The Energy Manager</center></h1><br>
 		</div><!-- /row -->
 	</div><!-- /container -->
     <br/><br/><br/><br/><br/><br/>
@@ -39,7 +40,6 @@
 
 <!-- Container -->
 <div id="container">
-
     {% if not is_popup %}
     <!-- Header -->
     <div id="header">
@@ -78,7 +78,7 @@
     {% block messages %}
         {% if messages %}
         <ul class="messagelist">{% for message in messages %}
-          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message|capfirst }}</li>
         {% endfor %}</ul>
         {% endif %}
     {% endblock messages %}
@@ -116,23 +116,23 @@
             <!--=== Social ===-->
             <div class="col-sm-3 mg25-xs" style="width: 25%">
                 <div class="heading-footer"><h4>Social Networks</h4></div>
-                <a class="btn btn-social-icon btn-twitter btn-lg">
+                <a class="btn btn-social-icon btn-twitter btn-lg" style="padding:9px 10px;">
                     <i class="fa fa-twitter"></i>
                     <img src="{% static 'myapp/images/twitter.png' %}"/>
                 </a>
-                <a class="btn btn-social-icon btn-instagram btn-lg">
+                <a class="btn btn-social-icon btn-instagram btn-lg" style="padding:9px 10px;">
                     <i class="fa fa-instagram"></i>
                     <img src="{% static 'myapp/images/instagram.png' %}"/>
                 </a>
-                <a class="btn btn-social-icon btn-google-plus btn-lg">
+                <a class="btn btn-social-icon btn-google-plus btn-lg" style="padding:9px 10px;" href="#">
                     <i class="fa fa-google-plus"></i>
                     <img src="{% static 'myapp/images/google+.png' %}"/>
                 </a>
-                <a class="btn btn-social-icon btn-facebook btn-lg">
+                <a class="btn btn-social-icon btn-facebook btn-lg" style="padding:9px 10px;">
                     <i class="fa fa-facebook"></i>
                     <img src="{% static 'myapp/images/facebook.png' %}"/>
                 </a>
-                <a class="btn btn-social-icon btn-linkedin btn-lg">
+                <a class="btn btn-social-icon btn-linkedin btn-lg" style="padding:9px 10px;">
                     <i class="fa fa-linkedin"></i>
                     <img src="{% static 'myapp/images/linkedin.png' %}"/>
                 </a>
@@ -155,18 +155,18 @@
                 <br/>
                 <br/>
                 <div class="col-xs-4 recent-work-padding">
-                    <a href="" class="thumbnail image-zoom-link">
-                      <img src="{% static 'myapp/images/buildings_footer.jpg' %}" alt="..." class="thumbnail img-responsive"/>
+                    <a href="#"  style="padding:0px; margin-bottom:0px; border:0px;">
+                      <img src="{% static 'myapp/images/building_footer.jpg' %}" />
                     </a>
                 </div>
                 <div class="col-xs-4 recent-work-padding">
-                    <a href="" class="thumbnail image-zoom-link">
-                      <img src="{% static 'myapp/images/street_lighting_footer.jpg' %}" alt="..." class="thumbnail img-responsive"/>
+                    <a href="#">
+                      <img src="{% static 'myapp/images/street_lighting_footer.jpg' %}" />
                     </a>
                 </div>
                 <div class="col-xs-4 recent-work-padding">
-                    <a href="" class="thumbnail image-zoom-link">
-                      <img src="{% static 'myapp/images/EV_footer.jpg' %}" alt="..." class="thumbnail img-responsive"/>
+                    <a href="#">
+                      <img src="{% static 'myapp/images/EV_footer.jpg' %}"/>
                     </a>
                 </div>
             </div>
@@ -176,10 +176,10 @@
             <hr class="dark-hr">
         </div>
         <div class="col-sm-11 col-xs-10" style="width: 100%">
-            <p class="copyright" style="margin-left: 1%">© 2013 Raleway. All rights reserved. Theme by <b>Denis Samardjiev</b>.</p>
+            <p class="copyright" style="margin-left: -1%">© 2013 Raleway. All rights reserved. Theme by <b>Denis Samardjiev</b>.</p>
         </div>
-        <div class="col-sm-1 col-xs-2 text-right" style="width: 98%">
-            <a href="#" class="scroll-top"><div class="footer-scrolltop-holder"> <img src="{% static 'myapp/images/arrow.png' %}"/></div></a>
+        <div class="col-sm-1 col-xs-2 text-right" style="width: 100%">
+            <a style="color:#272727;" href="#"><button class="glyphicon glyphicon-triangle-top" style="line-height: 2;" href="#"></button></a>
         </div>
         <!-- /row -->
     </div><!-- /container -->
@@ -187,6 +187,15 @@
 <!--=== End Footer ===-->
 {% endblock %}
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('dropdown-toggle').dropdown()
+});
+</script>
+
+<script src="{% static 'myapp/jquery.dynatable.js' %}" type="text/javascript"></script>
 
 </body>
 </html>

@@ -6,9 +6,11 @@
 
 {% block content %}
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<div style="margin-left: 37%">
+<br/><br/><br/>
 
 <h1>{% trans "Sign Up" %}</h1>
+<br/>
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
@@ -21,6 +23,7 @@
   <button type="submit">{% trans "Sign Up" %} &raquo;</button>
 </form>
 
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/>
+</div>
 
 {% endblock %}

@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_extensions',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -102,10 +103,17 @@ USE_L10N = True
 USE_TZ = True
 
 
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#LOGIN_REDIRECT_URL = '/p/main'
 
 TEMPLATE_DIRS = [
                 os.path.join(BASE_DIR, 'templates'),

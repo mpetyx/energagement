@@ -1,4 +1,4 @@
-{% extends "myapp/base_street_lighting.html" %}
+{% extends "myapp/base_buildings.html" %}
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 {% load staticfiles %}
 
@@ -6,7 +6,7 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Street Lighting</title>
+    <title>Electric Vehicles</title>
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/mycss.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'myapp/jquery.dynatable.css' %}" />
     <!--Load the AJAX API-->
@@ -27,24 +27,23 @@
     <br/>
     <div style="width: 30%; height: 500px;  margin-right:auto; margin-bottom: 10%; ">
         <div style="width: 100%; background-color:#ADFF2F;">
-            <h3 style="color: green; font-size: 23px;"> <center>Street Lighting</center> </h3>
+            <h3 style="color: green; font-size: 23px;"> <center>Electric Vehicles</center> </h3>
         </div>
         <div style="width: 100%; height: 52.5%; overflow-y: scroll; background: -webkit-linear-gradient(top, #6A942B, #DFEAE6);">
             <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
                 <div class="a">
-                    {% for item in all_street_lighting %}
-                        <input type="checkbox" class="graph-button" id="graph-button-{{item.id}}"><button class="navbar-btn" type="button" data-toggle="collapse" href="#info{{item.id}}">Street Lighting{{item.id}}</button></input>
+                    {% for item in all_EVs %}
+                        <input type="checkbox" class="graph-button" id="graph-button-{{item.id}}"><button class="navbar-btn" type="button" data-toggle="collapse" data-parent="cointainer" href="#info{{item.id}}">Electric Vehicle{{item.id}}</button></input>
                         <br/>
                         <div class="collapse" id="info{{item.id}}">
-                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>line code:</b> <span style="color: #155FB0">{{item.line_code}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>code:</b> <span style="color: #155FB0">{{item.chargingpoint_code}}</span> </p3><br/>
                             <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>municipality:</b> <span style="color: #155FB0">{{item.municipality}}</span> </p3><br/>
-                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>streets:</b> <span style="color: #155FB0">{{item.streets}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>street:</b> <span style="color: #155FB0">{{item.streets}}</span> </p3><br/>
                             <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>postcode:</b> <span style="color: #155FB0">{{item.postcode}}</span> </p3><br/>
                             <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>latitude:</b> <span style="color: #155FB0">{{item.latitude}}</span> </p3><br/>
                             <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>longitude:</b> <span style="color: #155FB0">{{item.longitude}}</span> </p3><br/>
-                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>power installed [W]:</b> <span style="color: #155FB0">{{item.power_installed}}</span> </p3><br/>
-                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>line length [km]:</b> <span style="color: #155FB0">{{item.line_length}}</span> </p3><br/>
-                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>number of lights:</b> <span style="color: #155FB0">{{item.lights_number}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>power [W]:</b> <span style="color: #155FB0">{{item.power}}</span> </p3><br/>
+                            <p3 style="margin-left: 10%; color: #272727; margin-bottom: -2%; margin-top: 1%"> <b>type:</b> <span style="color: #155FB0">{{item.type}}</span> </p3><br/>
                         </div>
                         <br/><br/>
                     {% endfor %}
@@ -59,11 +58,9 @@
         <div style="width: 100%; height: 47.5%; background: -webkit-linear-gradient(top, #3F5819, #DFEAE6); overflow-y: scroll">
             <ul style="vertical-align: middle; -webkit-padding-start: 0px;">
                 <input class="radio-button" type="radio" name="indicator" value="kwh" checked="checked">kwh</input><br>
-                <input class="radio-button" type="radio" name="indicator" value="kwh_line_length">kwh_line_length</input><br>
-                <input class="radio-button" type="radio" name="indicator" value="kwh_light">kwh_light</input><br>
-                <input class="radio-button" type="radio" name="indicator" value="kw">kw</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="total_charging_points">total charging points</input><br>
+                <input class="radio-button" type="radio" name="indicator" value="available_charging_points">available charging points</input><br>
                 <input class="radio-button" type="radio" name="indicator" value="co2_tn">co2_tn</input><br>
-                <input class="radio-button" type="radio" name="indicator" value="co2_tn_line_length">co2_tn_line_length</input><br>
             </ul>
         </div>
    	</div>
@@ -166,7 +163,7 @@
         window.open('data:application/vnd.ms-excel,' + encodeURIComponent(str));
     });
 
-    var svg = dimple.newSvg(".diagram_area", 900, 600);
+    var svg = dimple.newSvg(".diagram_area", 1000, 600);
     /* to remember the last type of diagram - initialized with bar */
     var last1="bar";
 
@@ -193,7 +190,7 @@
                 /*we send state=list_of_ids selected, state2=the selected indiacator, state3=time_scope, state4=date_from, state5=date_to */
                 data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
                 cache: 'false',
-                url: 'http://localhost:8000/p/data_street_lighting/',
+                url: 'http://localhost:8000/p/data_EVs/',
                 dataType: "json",
                 error: function () {
                     alert('something went wrong');
@@ -271,7 +268,7 @@
                 type: "get",
                 data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
                 cache: 'false',
-                url: 'http://localhost:8000/p/data_street_lighting/',
+                url: 'http://localhost:8000/p/data_EVs/',
                 dataType: "json",
                 error: function () {
                     alert('something went wrong');
@@ -345,7 +342,7 @@
                 type: "get",
                 data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
                 cache: 'false',
-                url: 'http://localhost:8000/p/data_street_lighting/',
+                url: 'http://localhost:8000/p/data_EVs/',
                 dataType: "json",
                 error: function () {
                     alert('something went wrong');
@@ -403,7 +400,7 @@
                 type: "get",
                 data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
                 cache: 'false',
-                url: 'http://localhost:8000/p/data_street_lighting/',
+                url: 'http://localhost:8000/p/data_EVs/',
                 dataType: "json",
                 error: function () {
                     alert('something went wrong');
@@ -462,7 +459,7 @@
                 type: "get",
                 data: {state: x, state2:$('input[name="indicator"]:checked').val(), state3:time, state4:from_date, state5:to_date, csrfmiddlewaretoken: '{{ csrf_token }}'},
                 cache: 'false',
-                url: 'http://localhost:8000/p/data_street_lighting/',
+                url: 'http://localhost:8000/p/data_EVs/',
                 dataType: "json",
                 error: function () {
                     alert('something went wrong');
