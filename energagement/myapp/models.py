@@ -125,6 +125,6 @@ class User(models.Model):
     password=models.CharField(max_length=200)
     email=models.CharField(max_length=200)
     buildings=models.ManyToManyField(Building, null=True, blank=True, related_name="buildings")
-    street_ligthing=models.ManyToManyField(StreetLighting, null=True, blank=True, related_name="street_lighting")
+    street_lighting=models.ManyToManyField(StreetLighting, null=True, blank=True, related_name="street_lighting")
     EVs=models.ManyToManyField(ElectricVehicle, null=True, blank=True, related_name="EVs")
 

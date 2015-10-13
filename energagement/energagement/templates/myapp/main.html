@@ -76,7 +76,7 @@ $(document).ready(function() {
           function initialize(response) {
                     var map_options = {
                         center: new google.maps.LatLng(37.980334, 23.774862),
-                        zoom: 13,
+                        zoom: 15,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                        // icon: 'http://google-maps-icons.googlecode.com/files/sailboat-tourism.png'
                     };
@@ -94,7 +94,7 @@ $(document).ready(function() {
                             icon: 'http://google-maps-icons.googlecode.com/files/powerlinepole.png',
                             title: 'test-' + response[i].dimos,
                             position: new google.maps.LatLng(response[i].latitude, response[i].longitude),
-                            html: '<p><strong>Location Name 2</strong><br/>Address 2</p>'
+                            html: '<p><strong>response[i].type </strong><br/>code: response[i].code <br/></p>'
                         });
 
                     }else if(response[i].type == "building"){
@@ -102,9 +102,9 @@ $(document).ready(function() {
                             map: google_map,
                             animation: google.maps.Animation.DROP,
                             icon: 'http://google-maps-icons.googlecode.com/files/home.png',
-                            title: 'Building-' + response[i].dimos,
+                            title: 'Building-' + response[i].kwdikos,
                             position: new google.maps.LatLng(response[i].latitude, response[i].longitude),
-                            html: '<p><strong>Location Name 2</strong><br/>Address 2</p>'
+                            html: '<p><strong>Building</strong></p>'
                         });
                     }
                     else if(response[i].type == "street_lighting"){
@@ -112,9 +112,9 @@ $(document).ready(function() {
                             map: google_map,
                             animation: google.maps.Animation.DROP,
                             icon: 'http://google-maps-icons.googlecode.com/files/powerlinepole.png',
-                            title: 'Street Lighting-' + response[i].dimos,
+                            title: 'Street Lighting-' + response[i].kwdikos,
                             position: new google.maps.LatLng(response[i].latitude, response[i].longitude),
-                            html: '<p><strong>Location Name 2</strong><br/>Address 2</p>'
+                            html: '<p><strong>Street Lighting</strong><br/></p>'
                         });
                     }
                     else{
@@ -122,9 +122,9 @@ $(document).ready(function() {
                             map: google_map,
                             animation: google.maps.Animation.DROP,
                             icon: 'http://google-maps-icons.googlecode.com/files/car.png',
-                            title: 'EV-' + response[i].dimos,
+                            title: 'EV-' + response[i].kwdikos,
                             position: new google.maps.LatLng(response[i].latitude, response[i].longitude),
-                            html: '<p><strong>Location Name 2</strong><br/>Address 2</p>'
+                            html: '<p><strong>EV</strong><br/></p>'
                         });
                     }
                     google.maps.event.addListener(m, 'click', function () {
